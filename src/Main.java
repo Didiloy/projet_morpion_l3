@@ -1,6 +1,8 @@
-public class Main {
+import Grille.Grille;
 
+public class Main {
     public static void main(String[]args){
-        System.out.println("hello world!");
+        Grille g = new Grille(10, 10);
+        g.print();
     }
 }
