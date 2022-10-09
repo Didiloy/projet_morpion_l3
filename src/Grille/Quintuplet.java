@@ -1,7 +1,6 @@
 package Grille;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Quintuplet {
     private int _valeur;
@@ -16,6 +15,10 @@ public class Quintuplet {
         this._lCases = l;
         this._lCases.forEach(c -> this._valeur += c.getValeur());
         this._etat = EtatQuintuplet.VIDE;
+    }
+
+    public ArrayList<Case> get_lCases() {
+        return this._lCases;
     }
 
     public int getValeur() {

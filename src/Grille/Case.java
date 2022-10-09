@@ -6,9 +6,14 @@ public class Case {
     private int _valeur;
     private State _state;
 
-    public Case(){
+    public int x;
+    public int y;
+
+    public Case(int x, int y){
         this._state = State.CROIX;
         this._valeur = 0;
+        this.x = x;
+        this.y = y;
     }
 
     /**
