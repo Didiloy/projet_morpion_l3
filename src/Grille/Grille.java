@@ -35,7 +35,7 @@ public class Grille {
         for (int i = 0; i < _tabCases.length; i++) {
             for (int j = 0; j < _tabCases[i].length; j++) {
                 _tabCases[i][j] = new Case(i, j);
-                if(i < 5 || j < 5 || i > this.x + 4|| j > this.y + 4 ) _tabCases[i][j].setJouable(false);
+                if(i < 5 || j < 5 || i > this.x + 4 || j > this.y + 4 ) _tabCases[i][j].setJouable(false);
             }
         }
     }
@@ -44,7 +44,6 @@ public class Grille {
      * Initialise the Quintuplet arraylist by creating all the quintuplet of the grid
      */
     private void initQuint(){
-        //TODO ajouter les diagonales
         for (int i = 5; i < _tabCases.length - 5; i++) {
             for (int j = 5; j < _tabCases[i].length - 5; j++) {
                 //Si on peut aligner 5 case horizontalement sans sortir de la grille on ajoute le quintuplet
@@ -63,7 +62,23 @@ public class Grille {
                     }
                     this._lQuint.add(new Quintuplet(l));
                 }
+                //Si on peut aligner 5 cases dans la diagonale descendante vers la droite
+                if((j + 4 < _tabCases[i].length - 5) && (i + 4 < _tabCases.length - 5)){
+                    ArrayList<Case> l = new ArrayList<>();
+                    for (int k = 0; k < 5; k++) {
+                        l.add(_tabCases[i + k][j + k]);
+                    }
+                    this._lQuint.add(new Quintuplet(l));
+                }
 
+                //Si on peut aligner 5 cases dans la diagonale montante vers la droite
+                if((j + 4 < _tabCases[i].length - 5) && (i < _tabCases.length - 5) && (i > 8)){ //i doit etre plus grand que 8 ne pas qu'on remonte plus haut que la case 5 qui est le début des cases visibles
+                    ArrayList<Case> l = new ArrayList<>();
+                    for (int k = 0; k < 5; k++) {
+                        l.add(_tabCases[i - k][j + k]);
+                    }
+                    this._lQuint.add(new Quintuplet(l));
+                }
             }
         }
     }
