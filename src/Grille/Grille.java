@@ -25,6 +25,7 @@ public class Grille {
                             [y < Y_MINIMUM  || y > Y_MAXIMUM ? Y_DEFAULT : y + 10];
         initTab();
         initQuint();
+        setInitialValue();
     }
 
     /**
@@ -44,10 +45,10 @@ public class Grille {
      * Initialise the Quintuplet arraylist by creating all the quintuplet of the grid
      */
     private void initQuint(){
-        for (int i = 5; i < _tabCases.length - 5; i++) {
-            for (int j = 5; j < _tabCases[i].length - 5; j++) {
+        for (int i = 0; i < _tabCases.length; i++) {
+            for (int j = 0; j < _tabCases[i].length; j++) {
                 //Si on peut aligner 5 case horizontalement sans sortir de la grille on ajoute le quintuplet
-                if(j + 4 < _tabCases[i].length - 5){
+                if(j + 4 < _tabCases[i].length){
                     ArrayList<Case> l = new ArrayList<>();
                     for (int k = j; k < j + 5; k++) {
                         l.add(_tabCases[i][k]);
@@ -55,7 +56,7 @@ public class Grille {
                     this._lQuint.add(new Quintuplet(l));
                 }
                 //Si on peut aligner 5 case verticalement sans sortir de la grille on ajoute le quintuplet
-                if(i + 4 < _tabCases.length - 5){
+                if(i + 4 < _tabCases.length){
                     ArrayList<Case> l = new ArrayList<>();
                     for (int k = i; k < i + 5; k++) {
                         l.add(_tabCases[k][j]);
@@ -63,7 +64,7 @@ public class Grille {
                     this._lQuint.add(new Quintuplet(l));
                 }
                 //Si on peut aligner 5 cases dans la diagonale descendante vers la droite
-                if((j + 4 < _tabCases[i].length - 5) && (i + 4 < _tabCases.length - 5)){
+                if((j + 4 < _tabCases[i].length) && (i + 4 < _tabCases.length)){
                     ArrayList<Case> l = new ArrayList<>();
                     for (int k = 0; k < 5; k++) {
                         l.add(_tabCases[i + k][j + k]);
@@ -72,7 +73,7 @@ public class Grille {
                 }
 
                 //Si on peut aligner 5 cases dans la diagonale montante vers la droite
-                if((j + 4 < _tabCases[i].length - 5) && (i < _tabCases.length - 5) && (i > 8)){ //i doit etre plus grand que 8 ne pas qu'on remonte plus haut que la case 5 qui est le début des cases visibles
+                if((j + 4 < _tabCases[i].length) && (i > 4)){ //i doit etre plus grand que 8 ne pas qu'on remonte plus haut que la case 5 qui est le début des cases visibles
                     ArrayList<Case> l = new ArrayList<>();
                     for (int k = 0; k < 5; k++) {
                         l.add(_tabCases[i - k][j + k]);
@@ -81,6 +82,28 @@ public class Grille {
                 }
             }
         }
+
+
+    }
+
+    /**
+    * Update the value of each Case in the grid.
+     * Add +1 to the value for each quintuplet that contains the Case.
+    */
+    public void updateValue(){
+        //TODO: en cours de jeu il faudra aussi prendre en compte l'état du quintuplet (ouvert ferme, vide)
+        //TODO: il faudra aussi prendre en compte
+    }
+
+    /**
+     * Set the iniatial value of each Case of the grid
+     */
+    public void setInitialValue(){
+        //Ajouter la valeur de base des carreaux dans la grille vide.
+        //la valeur d'un carreau est augmentée de 1 pour chaque quintuplet dans lequel il est compris.
+        this._lQuint.forEach(q -> q.get_lCases().forEach(c ->  {
+            if(c.getJouable()) c.setValeur(c.getValeur() + 1);
+        }));
     }
 
     /**
@@ -99,6 +122,31 @@ public class Grille {
             for (int j = 0; j < _tabCases[i].length; j++) {
                 if(j < 5 || j > this.y + 4 ) continue;
                 System.out.print(_tabCases[i][j] + "|");
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
+            if(i < 5 || i > this.x + 4 ) continue;
+            System.out.print("-");
+        }
+    }
+
+    /**
+     * Print the grid with only the playable grid visible and with the values of the case instead of the state.
+     * @Returns: void
+     */
+    public void printCasesValues(){
+        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
+            if(i < 5 || i > this.x + 4) continue;
+            System.out.print("-");
+        }
+        System.out.println();
+        for (int i = 0; i < _tabCases.length; i++) {
+            if(i < 5 || i > this.x + 4) continue;
+            System.out.print("|");
+            for (int j = 0; j < _tabCases[i].length; j++) {
+                if(j < 5 || j > this.y + 4 ) continue;
+                System.out.print(_tabCases[i][j].getValeur() + "|");
             }
             System.out.println();
         }
@@ -131,7 +179,7 @@ public class Grille {
         for (int i = 0; i < _tabCases.length; i++) {
             System.out.print("|");
             for (int j = 0; j < _tabCases[i].length; j++) {
-                System.out.print(_tabCases[i][j].getValeur() + "|");
+                System.out.print(_tabCases[i][j] + "|");
             }
             System.out.println();
         }
