@@ -57,6 +57,7 @@ public class Case {
      */
     public void setState(State state){
         this._state = state;
+        if(this._state != State.VIDE) this._jouable = false;
     }
 
     /**

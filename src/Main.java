@@ -1,3 +1,4 @@
+import Grille.Case;
 import Grille.Grille;
 
 public class Main {
@@ -6,6 +7,8 @@ public class Main {
         g.print();
 //        g.printAll();
 //        g.printQuint();
+        g.printCasesValues();
+        g.updateValue(Case.State.ROND);
         g.printCasesValues();
     }
 }

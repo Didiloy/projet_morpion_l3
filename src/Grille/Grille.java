@@ -88,11 +88,17 @@ public class Grille {
 
     /**
     * Update the value of each Case in the grid.
-     * Add +1 to the value for each quintuplet that contains the Case.
+     * @param s determine which pawn weighs the most.
     */
-    public void updateValue(){
-        //TODO: en cours de jeu il faudra aussi prendre en compte l'état du quintuplet (ouvert ferme, vide)
-        //TODO: il faudra aussi prendre en compte
+    public void updateValue(Case.State s){
+        //update les valeurs de tout les quintuplets
+        this._lQuint.forEach(Quintuplet::updateEtat);
+        this._lQuint.forEach(q -> q.updateValeur(s));
+
+        //assigner a chaque case la somme des valeurs des quintuplets qui la traverse
+        this._lQuint.forEach(q -> q.get_lCases().forEach(c ->  {
+            if(c.getJouable()) c.setValeur(c.getValeur() + q.getValeur());
+        }));
     }
 
     /**
