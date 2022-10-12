@@ -10,7 +10,7 @@ public class Case {
     public int y;
 
     public Case(int x, int y){
-        this._state = State.CROIX;
+        this._state = State.VIDE;
         this._valeur = 0;
         this.x = x;
         this.y = y;

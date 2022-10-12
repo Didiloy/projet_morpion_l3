@@ -101,6 +101,20 @@ public class Grille {
         }));
     }
 
+
+    /**
+     * Play a pawn in a Case. (change the state of the Case).
+     * Make sure that the x and y take into account the non-playable cells
+     * @param s the state to play
+     * @param x the x coordinate of the cell to play
+     * @param y the y coordinate of the cell to play
+     */
+    public void playCase(Case.State s, int x, int y){
+        if(s == Case.State.VIDE) return;
+        if(this._tabCases[x][y].getState() != Case.State.VIDE) return;
+        this._tabCases[x][y].setState(s);
+    }
+
     /**
      * Set the iniatial value of each Case of the grid
      */
@@ -196,8 +210,6 @@ public class Grille {
     }
 
     //TODO
-    //Ajouter un pion
     //supprimer un pion
-    // calculer les valeurs des cases
     // liste des quintuplés ouverts ou fermés
 }
