@@ -1,5 +1,7 @@
 package Joueur;
 
+import java.util.Scanner;
+
 import grille.Grille;
 import grille.Case.State;
 
@@ -10,15 +12,26 @@ public abstract class Player {
     private final State SIGN;
     private String name;
 
-    public Player(Grille grid, State sign) {
-        this.GRID = grid;
-        this.SIGN = sign;
-    }
-
     public Player(Grille grid, State sign, String _name) {
         this.GRID = grid;
         this.SIGN = sign;
-        this.name = _name;
+        if (_name == "Human") {
+            Scanner input = new Scanner(System.in);
+            System.out.print("Would you change your name ? (Answer by yes or no) : ");
+            String answer = input.nextLine();
+            System.out.println(); // ATTENTION TEST
+            if ((answer.compareToIgnoreCase("yes")) == 0) {
+                System.out.println("Write your new name :");
+                answer = input.nextLine();
+                this.name = answer;
+                input.close();
+            } else {
+                this.name = _name;
+                input.close();
+            }
+        } else {
+            this.name = _name;
+        }
     }
 
     public abstract void play();

@@ -1,5 +1,7 @@
 package Joueur;
 
+import java.util.Scanner;
+import grille.Case;
 import grille.Grille;
 import grille.Case.State;
 
@@ -14,7 +16,19 @@ public class RealPlayer extends Player {
     }
 
     public void play() {
-        // TODO
+        Case[][] tabCases = super.getGrid().getTabCases();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Choose an X position : ");
+        int x = input.nextInt();
+        System.out.println("Choose an Y position : ");
+        int y = input.nextInt();
+
+        if (tabCases[x][y].getJouable()) {
+            super.getGrid().playCase(this.getSign(), x, y);
+            input.close();
+        } else {
+            this.play();
+        }
 
     }
 

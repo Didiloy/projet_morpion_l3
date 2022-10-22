@@ -1,5 +1,8 @@
+import Joueur.Computer;
+import Joueur.RealPlayer;
 import grille.Case;
 import grille.Grille;
+import grille.Case.State;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,5 +14,10 @@ public class Main {
         g.printCasesValues();
         g.updateValue(Case.State.ROND);
         g.printCasesValues();
+
+        RealPlayer p1 = new RealPlayer(g, State.ROND);
+        Computer c1 = new Computer(g, State.CROIX);
+        System.out.println(p1.toString());
+        System.out.println(c1.toString());
     }
 }
