@@ -1,8 +1,8 @@
 package Joueur;
 
-import grille.Case;
-import grille.Grille;
-import grille.Case.State;
+import Grille.Case;
+import Grille.Grille;
+import Grille.Case.State;
 
 public class Computer extends Player {
 

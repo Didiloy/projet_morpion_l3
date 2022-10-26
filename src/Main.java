@@ -1,8 +1,8 @@
+import Grille.Grille;
 import Joueur.Computer;
 import Joueur.RealPlayer;
-import grille.Case;
-import grille.Grille;
-import grille.Case.State;
+import Grille.Case;
+import Grille.Case.State;
 
 public class Main {
     public static void main(String[] args) {

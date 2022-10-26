@@ -1,9 +1,9 @@
 package Joueur;
 
 import java.util.Scanner;
-import grille.Case;
-import grille.Grille;
-import grille.Case.State;
+import Grille.Case;
+import Grille.Grille;
+import Grille.Case.State;
 
 public class RealPlayer extends Player {
 
@@ -24,7 +24,7 @@ public class RealPlayer extends Player {
         int y = input.nextInt();
 
         if (tabCases[x][y].getJouable()) {
-            super.getGrid().playCase(this.getSign(), x, y);
+            super.getGrid().playCase(this.getSign(), x + 4, y + 4);
             input.close();
         } else {
             this.play();

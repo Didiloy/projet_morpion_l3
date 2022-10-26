@@ -1,4 +1,4 @@
-package grille;
+package Grille;
 
 public class Case {
     public enum State {

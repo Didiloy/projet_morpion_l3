@@ -1,4 +1,4 @@
-package grille;
+package Grille;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Grille {
     /**
      * Initialise the array of Case by creating the case and setting the extern one
      * to false.
-     * 
+     *
      * @Returns: void
      */
     private void initTab() {
@@ -80,8 +80,8 @@ public class Grille {
 
                 // Si on peut aligner 5 cases dans la diagonale montante vers la droite
                 if ((j + 4 < _tabCases[i].length) && (i > 4)) { // i doit etre plus grand que 8 ne pas qu'on remonte
-                                                                // plus haut que la case 5 qui est le début des cases
-                                                                // visibles
+                    // plus haut que la case 5 qui est le début des cases
+                    // visibles
                     ArrayList<Case> l = new ArrayList<>();
                     for (int k = 0; k < 5; k++) {
                         l.add(_tabCases[i - k][j + k]);
@@ -95,7 +95,7 @@ public class Grille {
 
     /**
      * Update the value of each Case in the grid.
-     * 
+     *
      * @param s determine which pawn weighs the most.
      */
     public void updateValue(Case.State s) {
@@ -113,7 +113,7 @@ public class Grille {
     /**
      * Play a pawn in a Case. (change the state of the Case).
      * Make sure that the x and y take into account the non-playable cells
-     * 
+     *
      * @param s the state to play
      * @param x the x coordinate of the cell to play
      * @param y the y coordinate of the cell to play
@@ -141,10 +141,19 @@ public class Grille {
 
     /**
      * Print the grid with only the playable grid visible.
-     * 
+     *
      * @Returns: void
      */
     public void print() {
+        //Print les absisses
+        System.out.print("  ");
+        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
+            if (i < 5 || i > this.x + 4)
+                continue;
+            System.out.print(" " + (i - 4) );
+        }
+        System.out.println();
+        System.out.print("  "); //3 espaces
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
             if (i < 5 || i > this.x + 4)
                 continue;
@@ -154,6 +163,7 @@ public class Grille {
         for (int i = 0; i < _tabCases.length; i++) {
             if (i < 5 || i > this.x + 4)
                 continue;
+            System.out.print((i - 4) + " ");
             System.out.print("|");
             for (int j = 0; j < _tabCases[i].length; j++) {
                 if (j < 5 || j > this.y + 4)
@@ -162,6 +172,8 @@ public class Grille {
             }
             System.out.println();
         }
+
+        System.out.print("  "); // 3 espaces
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
             if (i < 5 || i > this.x + 4)
                 continue;
@@ -172,16 +184,18 @@ public class Grille {
     /**
      * Print the grid with only the playable grid visible and with the values of the
      * case instead of the state.
-     * 
+     *
      * @Returns: void
      */
     public void printCasesValues() {
+        //print le séparateur du haut de la grille
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
             if (i < 5 || i > this.x + 4)
                 continue;
             System.out.print("-");
         }
         System.out.println();
+
         for (int i = 0; i < _tabCases.length; i++) {
             if (i < 5 || i > this.x + 4)
                 continue;
@@ -213,7 +227,7 @@ public class Grille {
 
     /**
      * Print the grid with all the cases visibles, even the non-playable one.
-     * 
+     *
      * @Returns: void
      */
     public void printAll() {

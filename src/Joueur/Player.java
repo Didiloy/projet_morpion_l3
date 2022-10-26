@@ -2,8 +2,8 @@ package Joueur;
 
 import java.util.Scanner;
 
-import grille.Grille;
-import grille.Case.State;
+import Grille.Grille;
+import Grille.Case.State;
 
 public abstract class Player {
 
