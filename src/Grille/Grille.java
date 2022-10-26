@@ -250,10 +250,29 @@ public class Grille {
 
     // TODO
     // supprimer un pion
-    // liste des quintuplés ouverts ou fermés
 
     // Retourne le tableau de case pour que les Computer sachent ou jouer.
     public Case[][] getTabCases() {
         return this._tabCases;
+    }
+
+    /**
+     *
+     * @return an array containing in this order the x and y coordinates of the maximum value
+     */
+    public int[] getMaxValue(){
+        int xMax = 0;
+        int yMax = 0;
+        int maxValue = 0;
+        for (int x = 0; x < _tabCases.length; x++) {
+            for (int y = 0; y < _tabCases[x].length; y++) {
+                if (_tabCases[x][y].getValeur() >= maxValue && _tabCases[x][y].getJouable()) {
+                    xMax = x;
+                    yMax = y;
+                    maxValue = _tabCases[x][y].getValeur();
+                }
+            }
+        }
+        return new int []{xMax, yMax};
     }
 }
