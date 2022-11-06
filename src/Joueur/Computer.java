@@ -1,16 +1,16 @@
 package Joueur;
 
+import common.enums.StateEnum;
 import grille.Case;
 import grille.Grille;
-import grille.Case.State;
 
 public class Computer extends Player {
 
-    public Computer(Grille grid, State sign) {
+    public Computer(Grille grid, StateEnum sign) {
         super(grid, sign, "Computer");
     }
 
-    public Computer(Grille grid, State sign, String name) {
+    public Computer(Grille grid, StateEnum sign, String name) {
         super(grid, sign, name);
     }
 

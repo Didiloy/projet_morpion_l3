@@ -1,19 +1,18 @@
 package grille;
 
+import common.enums.StateEnum;
+
 public class Case {
-    public enum State {
-        VIDE, CROIX, ROND
-    }
 
     private boolean _jouable = true;
     private int _valeur;
-    private State _state;
+    private StateEnum _state;
 
     public int x;
     public int y;
 
     public Case(int x, int y) {
-        this._state = State.VIDE;
+        this._state = StateEnum.VIDE;
         this._valeur = 0;
         this.x = x;
         this.y = y;
@@ -62,25 +61,30 @@ public class Case {
      * @param state int
      * @Returns: void
      */
-    public void setState(State state) {
+    public void setState(StateEnum state) {
         this._state = state;
-        if (this._state != State.VIDE)
+        if (this._state != StateEnum.VIDE)
             this._jouable = false;
     }
 
     /**
      * @Returns: State : the value state
      */
-    public State getState() {
+    public StateEnum getState() {
         return this._state;
     }
 
     @Override
     public String toString() {
-        return switch (this._state) {
-            case ROND -> "O";
-            case CROIX -> "X";
-            case VIDE -> " ";
-        };
+        switch (this._state) {
+            case ROND:
+                return "O";
+            case CROIX:
+                return "X";
+            case VIDE:
+                return " ";
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 }

@@ -1,18 +1,18 @@
 package Joueur;
 
-import java.util.Scanner;
-
+import common.enums.StateEnum;
 import grille.Grille;
-import grille.Case.State;
+
+import java.util.Scanner;
 
 public abstract class Player {
 
     private Grille GRID;
     private boolean superUser = false;
-    private final State SIGN;
+    private final StateEnum SIGN;
     private String name;
 
-    public Player(Grille grid, State sign, String _name) {
+    public Player(Grille grid, StateEnum sign, String _name) {
         this.GRID = grid;
         this.SIGN = sign;
         if (_name == "Human") {
@@ -49,7 +49,7 @@ public abstract class Player {
         return this.superUser;
     }
 
-    public State getSign() {
+    public StateEnum getSign() {
         return this.SIGN;
     }
 

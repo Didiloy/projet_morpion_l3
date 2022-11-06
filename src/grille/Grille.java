@@ -1,5 +1,7 @@
 package grille;
 
+import common.enums.StateEnum;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +100,7 @@ public class Grille {
      * 
      * @param s determine which pawn weighs the most.
      */
-    public void updateValue(Case.State s) {
+    public void updateValue(StateEnum s) {
         // update les valeurs de tout les quintuplets
         this._lQuint.forEach(Quintuplet::updateEtat);
         this._lQuint.forEach(q -> q.updateValeur(s));
@@ -118,13 +120,14 @@ public class Grille {
      * @param x the x coordinate of the cell to play
      * @param y the y coordinate of the cell to play
      */
-    public void playCase(Case.State s, int x, int y) {
-        if (s == Case.State.VIDE)
+    public void playCase(StateEnum s, int x, int y) {
+        if (s == StateEnum.VIDE)
             return;
-        if (this._tabCases[x][y].getState() != Case.State.VIDE)
+        if (this._tabCases[x][y].getState() != StateEnum.VIDE)
             return;
         this._tabCases[x][y].setState(s);
     }
+
 
     /**
      * Set the iniatial value of each Case of the grid

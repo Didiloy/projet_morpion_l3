@@ -1,17 +1,18 @@
 package Joueur;
 
-import java.util.Scanner;
+import common.enums.StateEnum;
 import grille.Case;
 import grille.Grille;
-import grille.Case.State;
+
+import java.util.Scanner;
 
 public class RealPlayer extends Player {
 
-    public RealPlayer(Grille grid, State sign) {
+    public RealPlayer(Grille grid, StateEnum sign) {
         super(grid, sign, "Human");
     }
 
-    public RealPlayer(Grille grid, State sign, String name) {
+    public RealPlayer(Grille grid, StateEnum sign, String name) {
         super(grid, sign, name);
     }
 

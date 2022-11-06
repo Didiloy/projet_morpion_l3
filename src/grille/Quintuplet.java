@@ -1,5 +1,7 @@
 package grille;
 
+import common.enums.StateEnum;
+
 import java.util.ArrayList;
 
 public class Quintuplet {
@@ -33,8 +35,8 @@ public class Quintuplet {
      * 
      * @param s determine which pawn weighs the most.
      */
-    public void updateValeur(Case.State s) {
-        if (s == Case.State.VIDE)
+    public void updateValeur(StateEnum s) {
+        if (s == StateEnum.VIDE)
             return;
         if (this._etat == EtatQuintuplet.FERME)
             return;
@@ -53,25 +55,25 @@ public class Quintuplet {
     }
 
     public void updateEtat() {
-        if (this._lCases.stream().allMatch(c -> c.getState() == Case.State.VIDE)) {
+        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.VIDE;
             return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == Case.State.CROIX
-                || c.getState() == Case.State.VIDE)) {
+        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX
+                || c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.OUVERT;
             return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == Case.State.ROND
-                || c.getState() == Case.State.VIDE)) {
+        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND
+                || c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.OUVERT;
             return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == Case.State.ROND)) {
+        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND)) {
             this._etat = EtatQuintuplet.COMPLET;
             return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == Case.State.CROIX)) {
+        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX)) {
             this._etat = EtatQuintuplet.COMPLET;
         } else
             this._etat = EtatQuintuplet.FERME;

@@ -54,7 +54,7 @@
         <UML:DataType visibility="public" isSpecification="false" namespace="Datatypes" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uvxccJW4H759M" name="Case*"/>
        </UML:Namespace.ownedElement>
       </UML:Package>
-      <UML:Package visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u7MdhoYeOMkde" name="Grille">
+      <UML:Package visibility="public" isSpecification="false" namespace="Logical_View" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u7MdhoYeOMkde" name="grille">
        <UML:Namespace.ownedElement>
         <UML:Class visibility="public" isSpecification="false" namespace="u7MdhoYeOMkde" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uzCne01ihMhye" name="Quintuplet">
          <UML:Classifier.feature>
@@ -99,7 +99,7 @@
           </UML:Enumeration>
          </UML:Namespace.ownedElement>
         </UML:Class>
-        <UML:Class visibility="public" isSpecification="false" namespace="u7MdhoYeOMkde" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u2wNfm7tcNZYl" name="Grille">
+        <UML:Class visibility="public" isSpecification="false" namespace="u7MdhoYeOMkde" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="u2wNfm7tcNZYl" name="grille">
          <UML:Classifier.feature>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="u4hcLyvaABBNF" type="u1ospbMAM3FEq" name="X_MINIMUM"/>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="uDB8bSzZKTuFv" type="u1ospbMAM3FEq" name="Y_MINIMUM"/>
@@ -111,7 +111,7 @@
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="urWEMT3u9AwHx" type="u1ospbMAM3FEq" name="y"/>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="uiDTMFHYoLnEw" type="uhe0g2qNUGOEM" name="_tabCases"/>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="uxwxlBnKFPIsI" type="uBb2DfjqQewi3" name="_lQuint"/>
-          <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uYhEtsM1r9OmW" isOverride="false" name="Grille" isInline="false" isVirtual="false">
+          <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uYhEtsM1r9OmW" isOverride="false" name="grille" isInline="false" isVirtual="false">
            <UML:BehavioralFeature.parameter>
             <UML:Parameter visibility="private" isSpecification="false" xmi.id="u1ZLjAa80YvM8" type="u1ospbMAM3FEq" value="" name="x"/>
             <UML:Parameter visibility="private" isSpecification="false" xmi.id="uFBiOSFLr3xVS" type="u1ospbMAM3FEq" value="" name="y"/>
@@ -148,7 +148,7 @@
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="urWEMT3u9AwHx" type="u1ospbMAM3FEq" name="y"/>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="uiDTMFHYoLnEw" type="uhe0g2qNUGOEM" name="_tabCases"/>
           <UML:Attribute visibility="private" isSpecification="false" xmi.id="uxwxlBnKFPIsI" type="uBb2DfjqQewi3" name="_lQuint"/>
-          <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uYhEtsM1r9OmW" isOverride="false" name="Grille" isInline="false" isVirtual="false">
+          <UML:Operation visibility="public" isSpecification="false" isQuery="false" isAbstract="false" isLeaf="false" isRoot="false" xmi.id="uYhEtsM1r9OmW" isOverride="false" name="grille" isInline="false" isVirtual="false">
            <UML:BehavioralFeature.parameter>
             <UML:Parameter visibility="private" isSpecification="false" xmi.id="u1ZLjAa80YvM8" type="u1ospbMAM3FEq" value="" name="x"/>
             <UML:Parameter visibility="private" isSpecification="false" xmi.id="uFBiOSFLr3xVS" type="u1ospbMAM3FEq" value="" name="y"/>
