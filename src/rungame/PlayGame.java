@@ -1,7 +1,9 @@
 package rungame;
 
 
+import Joueur.Computer;
 import Joueur.Player;
+import Joueur.RealPlayer;
 import common.enums.StateEnum;
 import grille.Grille;
 
@@ -23,6 +25,16 @@ public class PlayGame {
         if ((!signe.equals(StateEnum.ROND.toString())) || (!signe.equals(StateEnum.CROIX.toString())))
             System.out.println("Do you want to be X or O");
         signe = getState().toString();
+    }
+
+    /**
+     * Start the game and stop it if there is a win
+     * @param g the grid
+     * @param c the computer
+     * @param p the real player
+     */
+    public static void start(Grille g, Computer c, RealPlayer p){
+        //TODO
     }
 
 
