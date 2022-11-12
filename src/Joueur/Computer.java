@@ -1,14 +1,7 @@
 package Joueur;
 
-<<<<<<< HEAD
 import common.enums.StateEnum;
-import grille.Case;
 import grille.Grille;
-=======
-import Grille.Case;
-import Grille.Grille;
-import Grille.Case.State;
->>>>>>> 25a96053ac762b4ef408b447e0b6dfc403f9cf54
 
 public class Computer extends Player {
 

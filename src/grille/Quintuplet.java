@@ -1,8 +1,9 @@
-package Grille;
+package grille;
 
 import common.enums.StateEnum;
 
 import java.util.ArrayList;
+
 
 public class Quintuplet {
     private int _valeur;

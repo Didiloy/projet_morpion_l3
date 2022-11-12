@@ -50,10 +50,8 @@ public class PlayGame {
     /**
      * check win
      **/
-
-
     public void checkWin(){
-        Player player1
+//        Player player1
 
     }
 

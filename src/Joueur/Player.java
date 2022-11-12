@@ -1,16 +1,10 @@
 package Joueur;
 
-<<<<<<< HEAD
 import common.enums.StateEnum;
 import grille.Grille;
 
+import java.util.Objects;
 import java.util.Scanner;
-=======
-import java.util.Scanner;
-
-import Grille.Grille;
-import Grille.Case.State;
->>>>>>> 25a96053ac762b4ef408b447e0b6dfc403f9cf54
 
 public abstract class Player {
 
@@ -22,7 +16,7 @@ public abstract class Player {
     public Player(Grille grid, StateEnum sign, String _name) {
         this.GRID = grid;
         this.SIGN = sign;
-        if (_name == "Human") {
+        if (Objects.equals(_name, "Human")) {
             Scanner input = new Scanner(System.in);
             System.out.print("Would you change your name ? (Answer by yes or no) : ");
             String answer = input.nextLine();

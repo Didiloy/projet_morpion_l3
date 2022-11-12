@@ -1,17 +1,11 @@
 package Joueur;
 
-<<<<<<< HEAD
 import common.enums.StateEnum;
 import grille.Case;
 import grille.Grille;
 
 import java.util.Scanner;
-=======
-import java.util.Scanner;
-import Grille.Case;
-import Grille.Grille;
-import Grille.Case.State;
->>>>>>> 25a96053ac762b4ef408b447e0b6dfc403f9cf54
+
 
 public class RealPlayer extends Player {
 
@@ -23,7 +17,15 @@ public class RealPlayer extends Player {
         super(grid, sign, name);
     }
 
-    public void play() {
+    /**
+     * Get the player input to play on the case he choose
+     */
+    public void play(){
+        //Call the private play methode
+        play("");
+    }
+    private void play(String msg) {
+        if(msg.equals("Implayable case. Choose another case")) System.out.println(msg);
         Case[][] tabCases = super.getGrid().getTabCases();
         Scanner input = new Scanner(System.in);
         System.out.println("Choose an X position : ");
@@ -31,11 +33,11 @@ public class RealPlayer extends Player {
         System.out.println("Choose an Y position : ");
         int y = input.nextInt();
 
-        if (tabCases[x][y].getJouable()) {
+        if (tabCases[x+4][y+4].getJouable()) {
             super.getGrid().playCase(this.getSign(), x + 4, y + 4);
             input.close();
         } else {
-            this.play();
+            this.play("Implayable case. Choose another case");
         }
 
     }
