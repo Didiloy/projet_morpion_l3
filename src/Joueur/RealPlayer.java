@@ -3,6 +3,7 @@ package Joueur;
 import common.enums.StateEnum;
 import grille.Case;
 import grille.Grille;
+import rungame.PlayGame;
 
 import java.util.Scanner;
 
@@ -27,15 +28,13 @@ public class RealPlayer extends Player {
     private void play(String msg) {
         if(msg.equals("Implayable case. Choose another case")) System.out.println(msg);
         Case[][] tabCases = super.getGrid().getTabCases();
-        Scanner input = new Scanner(System.in);
         System.out.println("Choose an X position : ");
-        int x = input.nextInt();
+        int x = PlayGame.input.nextInt();
         System.out.println("Choose an Y position : ");
-        int y = input.nextInt();
+        int y = PlayGame.input.nextInt();
 
         if (tabCases[x+4][y+4].getJouable()) {
             super.getGrid().playCase(this.getSign(), x + 4, y + 4);
-            input.close();
         } else {
             this.play("Implayable case. Choose another case");
         }

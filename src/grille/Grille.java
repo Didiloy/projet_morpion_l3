@@ -278,4 +278,16 @@ public class Grille {
         }
         return new int []{xMax, yMax};
     }
+
+
+    public StateEnum getStateQuintupletComplet(){
+        StateEnum stateQuintComplet = null;
+        for (Quintuplet quintuplet : this._lQuint){
+            if (quintuplet.getEtat().equals(Quintuplet.EtatQuintuplet.COMPLET)){
+                stateQuintComplet = quintuplet.get_lCases().get(0).getState();
+            }
+        }
+
+        return stateQuintComplet;
+    }
 }

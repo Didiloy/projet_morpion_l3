@@ -2,6 +2,7 @@ package Joueur;
 
 import common.enums.StateEnum;
 import grille.Grille;
+import rungame.PlayGame;
 
 import java.util.Objects;
 import java.util.Scanner;
@@ -17,18 +18,15 @@ public abstract class Player {
         this.GRID = grid;
         this.SIGN = sign;
         if (Objects.equals(_name, "Human")) {
-            Scanner input = new Scanner(System.in);
             System.out.print("Would you change your name ? (Answer by yes or no) : ");
-            String answer = input.nextLine();
+            String answer = PlayGame.input.nextLine();
             System.out.println(); // ATTENTION TEST
             if ((answer.compareToIgnoreCase("yes")) == 0) {
                 System.out.println("Write your new name :");
-                answer = input.nextLine();
+                answer = PlayGame.input.nextLine();
                 this.name = answer;
-                input.close();
             } else {
                 this.name = _name;
-                input.close();
             }
         } else {
             this.name = _name;
