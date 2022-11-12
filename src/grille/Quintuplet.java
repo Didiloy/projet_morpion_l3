@@ -58,25 +58,24 @@ public class Quintuplet {
     public void updateEtat() {
         if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.VIDE;
-            return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX
+        else if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND)) {
+            this._etat = EtatQuintuplet.COMPLET;
+        }
+        else if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX)) {
+            this._etat = EtatQuintuplet.COMPLET;
+        }
+        else if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX
                 || c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.OUVERT;
-            return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND
+        else if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND
                 || c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.OUVERT;
-            return;
         }
-        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND)) {
-            this._etat = EtatQuintuplet.COMPLET;
-            return;
-        }
-        if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.CROIX)) {
-            this._etat = EtatQuintuplet.COMPLET;
-        } else
+        else
+        {
             this._etat = EtatQuintuplet.FERME;
+        }
     }
 }

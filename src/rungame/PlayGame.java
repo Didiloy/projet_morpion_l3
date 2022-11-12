@@ -106,6 +106,7 @@ public class PlayGame {
         this.round ++;
         System.out.println("Round " + this.round);
         this.GRID.print();
+        //this.GRID.printQuint();
         if(this.firstPlayer == 1) {
             System.out.println("It's your turn to play");
             this.realPlayer.play();

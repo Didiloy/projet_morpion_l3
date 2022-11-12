@@ -35,10 +35,9 @@ public class RealPlayer extends Player {
 
         if (tabCases[x+4][y+4].getJouable()) {
             super.getGrid().playCase(this.getSign(), x + 4, y + 4);
+            super.getGrid().updateValue(this.SIGN);
         } else {
             this.play("Implayable case. Choose another case");
         }
-
     }
-
 }
