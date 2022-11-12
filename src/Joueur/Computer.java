@@ -1,8 +1,14 @@
 package Joueur;
 
+<<<<<<< HEAD
 import common.enums.StateEnum;
 import grille.Case;
 import grille.Grille;
+=======
+import Grille.Case;
+import Grille.Grille;
+import Grille.Case.State;
+>>>>>>> 25a96053ac762b4ef408b447e0b6dfc403f9cf54
 
 public class Computer extends Player {
 
@@ -15,20 +21,8 @@ public class Computer extends Player {
     }
 
     public void play() {
-        int xMax = 0;
-        int yMax = 0;
-        Case[][] tabCases = super.getGrid().getTabCases();
-        int maxValue = 0;
-        for (int x = 0; x < tabCases.length; x++) {
-            for (int y = 0; y < tabCases[x].length; y++) {
-                if (tabCases[x][y].getValeur() >= maxValue && tabCases[x][y].getJouable()) {
-                    xMax = x;
-                    yMax = y;
-                    maxValue = tabCases[x][y].getValeur();
-                }
-            }
-        }
-        super.getGrid().playCase(super.getSign(), xMax, yMax);
+        int[] maxValue = this.getGrid().getMaxValue();
+        super.getGrid().playCase(super.getSign(), maxValue[0], maxValue[1]);
     }
 
 }

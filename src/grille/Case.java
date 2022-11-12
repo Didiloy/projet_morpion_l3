@@ -1,4 +1,4 @@
-package grille;
+package Grille;
 
 import common.enums.StateEnum;
 
