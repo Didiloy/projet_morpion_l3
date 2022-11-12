@@ -10,7 +10,7 @@ public abstract class Player {
 
     private Grille GRID;
     private boolean superUser = false;
-    private final StateEnum SIGN;
+    protected final StateEnum SIGN;
     private String name;
 
     public Player(Grille grid, StateEnum sign, String _name) {

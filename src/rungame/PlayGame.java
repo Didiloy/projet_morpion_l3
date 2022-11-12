@@ -20,7 +20,7 @@ public class PlayGame {
 
     public void inputPlayerSigne(String signe) {
         signe = this.state.toString();
-        if ((!signe.equals(state.ROND.toString())) || (!signe.equals(state.CROIX.toString())))
+        if ((!signe.equals(StateEnum.ROND.toString())) || (!signe.equals(StateEnum.CROIX.toString())))
             System.out.println("Do you want to be X or O");
         signe = getState().toString();
     }
