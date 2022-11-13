@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Grille {
-    private final int X_MINIMUM = 5;
-    private final int Y_MINIMUM = 5;
-    private final int X_DEFAULT = 10;
-    private final int Y_DEFAULT = 10;
-    private final int X_MAXIMUM = 100;
-    private final int Y_MAXIMUM = 100;
 
     private int x;
     private int y;
@@ -23,8 +17,7 @@ public class Grille {
     public Grille(int x, int y) {
         this.x = x;
         this.y = y;
-        _tabCases = new Case[x < X_MINIMUM || x > X_MAXIMUM ? X_DEFAULT
-                : x + 10][y < Y_MINIMUM || y > Y_MAXIMUM ? Y_DEFAULT : y + 10];
+        _tabCases = new Case[x + 10][y + 10];
         initTab();
         initQuint();
         setInitialValue();
@@ -182,6 +175,7 @@ public class Grille {
                 continue;
             System.out.print("-");
         }
+        System.out.println();
     }
 
     /**

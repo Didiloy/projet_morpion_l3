@@ -14,8 +14,6 @@ public class PlayGame {
 
     private Player computer, realPlayer;
     private Grille GRID;
-    private Grille CASE;
-    private StateEnum state;
     private int round;
     private int firstPlayer;
 
@@ -23,14 +21,11 @@ public class PlayGame {
 
     public PlayGame(){
         // Choisis la taille de la grille
-        System.out.println("Choose width of the grid: ");
-        int x = input.nextInt();
-        System.out.println("Choose height of the grid: ");
-        int y = input.nextInt();
+        int x = get_size_grid("width");
+        int y = get_size_grid("height");
 
         // Choisis le signe du joueur
         System.out.println("Choose a sign (x or o) :");
-        input.nextLine();
         String sign = input.nextLine();
 
         StateEnum signPlayer;
@@ -51,34 +46,38 @@ public class PlayGame {
         }
 
         // initialisation de la grille, des joueurs, des tours et du premier joueur
-        this.GRID = new Grille(x, y);
+        this.GRID = new Grille(y, x);
         this.realPlayer = new RealPlayer(this.GRID, signPlayer);
         this.computer = new Computer(this.GRID, signComputer);
         this.round = 0;
         this.firstPlayer = this.whoGoesFirst();
     }
 
-    /**
-     * player choose the signe
-     **/
-
-    public void inputPlayerSigne(String signe) {
-        signe = this.state.toString();
-        if ((!signe.equals(StateEnum.ROND.toString())) || (!signe.equals(StateEnum.CROIX.toString())))
-            System.out.println("Do you want to be X or O");
-        signe = getState().toString();
+    private int get_size_grid(String toget){
+        int value = -1;
+        while (value == -1)
+        {
+            System.out.println("Choose " + toget + " of the grid: ");
+            String line = input.nextLine();
+            try {
+                value = Integer.parseInt(line);
+            }
+            catch (NumberFormatException e) {
+                value = -1;
+                System.out.println("The " + toget + " has to be an integer");
+                continue;
+            }
+            if (value < 5) {
+                value = -1;
+                System.out.println("The " + toget + " can't be less than 5");
+            }
+            else if (value > 100) {
+                value = -1;
+                System.out.println("The " + toget + " can't be greate than 100");
+            }
+        }
+        return value;
     }
-
-    /**
-     * Start the game and stop it if there is a win
-     * @param g the grid
-     * @param c the computer
-     * @param p the real player
-     */
-    public static void start(Grille g, Computer c, RealPlayer p){
-
-    }
-
 
     /**
      * Get random number
@@ -105,9 +104,9 @@ public class PlayGame {
     public void nextRound(){
         this.round ++;
         System.out.println("Round " + this.round);
-        this.GRID.print();
-        //this.GRID.printQuint();
+
         if(this.firstPlayer == 1) {
+            this.GRID.print();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
             System.out.println("The computer play.");
@@ -115,6 +114,7 @@ public class PlayGame {
         }else{
             System.out.println("The computer play.");
             this.computer.play();
+            this.GRID.print();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
         }
@@ -136,52 +136,5 @@ public class PlayGame {
         }
         return false;
 
-    }
-
-
-
-    public Player getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Player computer) {
-        this.computer = computer;
-    }
-
-    public Player getRealPlayer() {
-        return realPlayer;
-    }
-
-    public void setRealPlayer(Player realPlayer) {
-        this.realPlayer = realPlayer;
-    }
-
-    public Grille getGRID() {
-        return GRID;
-    }
-
-    public void setGRID(Grille GRID) {
-        this.GRID = GRID;
-    }
-
-    public Grille getCASE() {
-        return CASE;
-    }
-
-    public void setCASE(Grille CASE) {
-        this.CASE = CASE;
-    }
-
-    public StateEnum getState() {
-        return state;
-    }
-
-    public void setState(StateEnum state) {
-        this.state = state;
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(new PlayGame().generateRandomNumber(0, 2));
     }
 }
