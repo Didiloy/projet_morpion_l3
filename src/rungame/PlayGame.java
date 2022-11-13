@@ -64,7 +64,7 @@ public class PlayGame {
             }
             catch (NumberFormatException e) {
                 value = -1;
-                System.out.println("The " + toget + " has to be an integer");
+                System.out.println("The " + toget + " has to be an integer greater than 5");
                 continue;
             }
             if (value < 5) {
@@ -73,7 +73,7 @@ public class PlayGame {
             }
             else if (value > 100) {
                 value = -1;
-                System.out.println("The " + toget + " can't be greate than 100");
+                System.out.println("The " + toget + " can't be greater than 100");
             }
         }
         return value;
