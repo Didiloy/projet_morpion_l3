@@ -15,8 +15,10 @@ public class Grille {
     private List<Quintuplet> _lQuint = new ArrayList<>();
 
     public Grille(int x, int y) {
-        this.x = x;
-        this.y = y;
+//        this.x = x;
+//        this.y = y;
+        this.x = y;
+        this.y = x;
         _tabCases = new Case[x + 10][y + 10];
         initTab();
         initQuint();
@@ -30,8 +32,8 @@ public class Grille {
      * @Returns: void
      */
     private void initTab() {
-        for (int i = 0; i < _tabCases.length; i++) {
-            for (int j = 0; j < _tabCases[i].length; j++) {
+        for (int i = 0; i < _tabCases.length ; i++) {
+            for (int j = 0; j < _tabCases[0].length; j++) {
                 _tabCases[i][j] = new Case(i, j);
                 if (i < 5 || j < 5 || i > this.x + 4 || j > this.y + 4)
                     _tabCases[i][j].setJouable(false);
@@ -144,25 +146,29 @@ public class Grille {
         //Print les absisses
         System.out.print("  ");
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
-            if (i < 5 || i > this.x + 4)
+            if (i < 5 || i > this.y + 4)
                 continue;
             System.out.print(" " + (i - 4) );
         }
         System.out.println();
         System.out.print("  "); //3 espaces
-        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
-            if (i < 5 || i > this.x + 4)
+        for (int i = 5; i < _tabCases.length * 2 + 1; i++) {
+            if (i > this.y + 4)
                 continue;
-            System.out.print("-");
+            System.out.print("--");
         }
         System.out.println();
         for (int i = 0; i < _tabCases.length; i++) {
             if (i < 5 || i > this.x + 4)
+//                for (int i = 0; i < _tabCases[0].length; i++) {
+//                    if (i < 5 || i > this.y + 4)
                 continue;
             System.out.print((i - 4) + " ");
             System.out.print("|");
-            for (int j = 0; j < _tabCases[i].length; j++) {
+            for (int j = 0; j < _tabCases[0].length; j++) {
                 if (j < 5 || j > this.y + 4)
+//                    for (int j = 0; j < _tabCases.length; j++) {
+//                        if (j < 5 || j > this.x + 4)
                     continue;
                 System.out.print(_tabCases[i][j] + "|");
             }
@@ -170,10 +176,10 @@ public class Grille {
         }
 
         System.out.print("  "); // 3 espaces
-        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
-            if (i < 5 || i > this.x + 4)
+        for (int i = 5; i < _tabCases.length * 2 + 1; i++) {
+            if (i > this.y + 4)
                 continue;
-            System.out.print("-");
+            System.out.print("--");
         }
         System.out.println();
     }
@@ -209,6 +215,31 @@ public class Grille {
                 continue;
             System.out.print("-");
         }
+    }
+
+    /**
+     * Print the grid with all the grid visible and with the values of the
+     * jouable attribut of the Case instead of the state.
+     *
+     * @Returns: void
+     */
+    public void printCasesJouable() {
+        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+        for (int i = 0; i < _tabCases.length; i++) {
+            System.out.print((i - 4) + " ");
+            System.out.print("|");
+            for (int j = 0; j < _tabCases[i].length; j++) {
+                System.out.print(_tabCases[i][j].getJouable() + "|");
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 
     /**

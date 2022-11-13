@@ -33,7 +33,7 @@ public class PlayGame {
 
         // Demande au joueur un signe valide
         while ( !sign.equals("x") && !sign.equals("o")){
-            System.out.println("Please choose a sign x or o, not other thing :");
+            System.out.println("You can only choose x and o as signs: ");
             sign = input.nextLine();
         }
 
@@ -46,11 +46,12 @@ public class PlayGame {
         }
 
         // initialisation de la grille, des joueurs, des tours et du premier joueur
-        this.GRID = new Grille(y, x);
+        this.GRID = new Grille(x, y);
         this.realPlayer = new RealPlayer(this.GRID, signPlayer);
         this.computer = new Computer(this.GRID, signComputer);
         this.round = 0;
         this.firstPlayer = this.whoGoesFirst();
+        System.out.println(this.firstPlayer == 0 ? "The computer start this game." : "You start this game.");
     }
 
     private int get_size_grid(String toget){
@@ -109,12 +110,18 @@ public class PlayGame {
             this.GRID.print();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
+//            this.GRID.printAll();
+//            this.GRID.printCasesJouable();
+//            this.GRID.printCasesValues();
             System.out.println("The computer play.");
             this.computer.play();
         }else{
             System.out.println("The computer play.");
             this.computer.play();
             this.GRID.print();
+//            this.GRID.printAll();
+//            this.GRID.printCasesJouable();
+//            this.GRID.printCasesValues();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
         }

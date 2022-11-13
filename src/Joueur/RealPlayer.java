@@ -28,8 +28,8 @@ public class RealPlayer extends Player {
     private void play(String msg) {
         if(msg.equals("Implayable case. Choose another case")) System.out.println(msg);
         Case[][] tabCases = super.getGrid().getTabCases();
-        int x = get_value_play("X", tabCases[0].length - 10);
-        int y = get_value_play("Y", tabCases.length - 10);
+        int x = get_value_play("X", tabCases.length - 10);
+        int y = get_value_play("Y", tabCases[0].length - 10);
 
         if (tabCases[y+4][x+4].getJouable()) {
             super.getGrid().playCase(this.getSign(), y + 4, x + 4);
