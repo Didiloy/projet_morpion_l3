@@ -107,23 +107,34 @@ public class PlayGame {
         System.out.println("Round " + this.round);
 
         if(this.firstPlayer == 1) {
-            this.GRID.print();
             System.out.println("It's your turn to play");
+            this.GRID.print();
             this.realPlayer.play();
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
 //            this.GRID.printCasesValues();
+            this.GRID.print();
             System.out.println("The computer play.");
+            try {
+                Thread.sleep(3);
+            } catch (InterruptedException ignored) {
+
+            }
             this.computer.play();
+            this.GRID.print();
         }else{
             System.out.println("The computer play.");
             this.computer.play();
             this.GRID.print();
+
+//            this.GRID.print();
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
 //            this.GRID.printCasesValues();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
+            this.GRID.print();
+
         }
     }
 
