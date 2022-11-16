@@ -1,5 +1,6 @@
 package grille;
 
+import common.enums.ANSIColor;
 import common.enums.StateEnum;
 
 public class Case {
@@ -78,9 +79,9 @@ public class Case {
     public String toString() {
         switch (this._state) {
             case ROND:
-                return "O";
+                return ANSIColor.ANSI_CYAN + "O" + ANSIColor.ANSI_RESET;
             case CROIX:
-                return "X";
+                return ANSIColor.ANSI_RED + "X" + ANSIColor.ANSI_RESET;
             case VIDE:
                 return " ";
             default:

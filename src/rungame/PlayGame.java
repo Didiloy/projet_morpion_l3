@@ -4,6 +4,7 @@ package rungame;
 import Joueur.Computer;
 import Joueur.Player;
 import Joueur.RealPlayer;
+import common.enums.ANSIColor;
 import common.enums.StateEnum;
 import grille.Grille;
 
@@ -105,25 +106,22 @@ public class PlayGame {
     public void nextRound(){
         this.round ++;
         System.out.println("Round " + this.round);
+        this.GRID.print();
 
         if(this.firstPlayer == 1) {
             System.out.println("It's your turn to play");
-            this.GRID.print();
             this.realPlayer.play();
-//            this.GRID.printAll();
-//            this.GRID.printCasesJouable();
-//            this.GRID.printCasesValues();
             this.GRID.print();
             System.out.println("The computer play.");
             try {
-                Thread.sleep(3);
-            } catch (InterruptedException ignored) {
-
-            }
+                Thread.sleep(2000);
+            } catch (InterruptedException ignored) {}
             this.computer.play();
-            this.GRID.print();
         }else{
             System.out.println("The computer play.");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ignored) {}
             this.computer.play();
             this.GRID.print();
 
@@ -133,8 +131,6 @@ public class PlayGame {
 //            this.GRID.printCasesValues();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
-            this.GRID.print();
-
         }
     }
 
@@ -145,9 +141,9 @@ public class PlayGame {
         StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
         if( symboleGagnant != null){
             if (symboleGagnant.equals(this.computer.getSign())){
-                System.out.println("The computer win !");
+                System.out.println( ANSIColor.ANSI_YELLOW + "The computer win !" + ANSIColor.ANSI_RESET);
             }else{
-                System.out.println("You win !");
+                System.out.println(ANSIColor.ANSI_GREEN + "You win !" + ANSIColor.ANSI_RESET);
             }
             input.close();
             return true;
