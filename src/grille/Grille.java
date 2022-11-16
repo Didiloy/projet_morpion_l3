@@ -2,8 +2,7 @@ package grille;
 
 import common.enums.StateEnum;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Grille {
 
@@ -248,7 +247,7 @@ public class Grille {
     public void printQuint() {
         this._lQuint.forEach(l -> {
             System.out.print("[");
-            l.get_lCases().forEach(c -> System.out.print("(" + c.x + "," + c.y + ")"));
+            l.get_lCases().forEach(c -> System.out.print("(" + c.x + "," + c.y + " | " + c.getValeur() + ") "));
             System.out.println("]");
         });
     }
@@ -301,7 +300,20 @@ public class Grille {
                 }
             }
         }
-        return new int []{xMax, yMax};
+        //Faire une liste des valeurs égales a la valeur max pour jouer une case random si il y en a plusieurs avec des valeurs max
+        ArrayList<Integer> lx = new ArrayList<>();
+        ArrayList<Integer> ly = new ArrayList<>();
+        for (int x = 0; x < _tabCases.length; x++) {
+            for (int y = 0; y < _tabCases[x].length; y++) {
+                if (_tabCases[x][y].getValeur() == maxValue && _tabCases[x][y].getJouable()) {
+                    lx.add(x);
+                    ly.add(y);
+                }
+            }
+        }
+        Random r = new Random();
+        int re = r.nextInt(lx.size());
+        return new int []{lx.get(re), ly.get(re)};
     }
 
 

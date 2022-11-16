@@ -113,19 +113,23 @@ public class PlayGame {
             this.realPlayer.play();
             this.GRID.print();
 //            this.GRID.printCasesValues();
+//            this.GRID.printQuint();
             System.out.println("The computer play.");
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ignored) {}
             this.computer.play();
+//            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
         }else{
             System.out.println("The computer play.");
+//            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ignored) {}
             this.computer.play();
+//            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             this.GRID.print();
 
