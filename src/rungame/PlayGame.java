@@ -136,7 +136,6 @@ public class PlayGame {
 //            this.GRID.print();
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
-//            this.GRID.printCasesValues();
             System.out.println("It's your turn to play");
             this.realPlayer.play();
         }
