@@ -102,8 +102,7 @@ public class Grille {
 
         // assigner a chaque case la somme des valeurs des quintuplets qui la traverse
         this._lQuint.forEach(q -> q.get_lCases().forEach(c -> {
-            if (c.getJouable())
-                c.setValeur(c.getValeur() + q.getValeur());
+                c.setValeur( c.getJouable() ? c.getValeur() + q.getValeur() : 0); //Si la case est jouable on lui ajoute la valeur du quintuplet sinon on met 0
         }));
     }
 
@@ -215,6 +214,7 @@ public class Grille {
                 continue;
             System.out.print("-");
         }
+        System.out.println();
     }
 
     /**
