@@ -114,23 +114,21 @@ public class Grille {
             if (arr.length == 4) {
                 q.get_lCases().forEach(c -> {
                     if (c.getState() == StateEnum.VIDE) {
-                        c.setValeur(c.getValeur() + 10000);
+                        c.setValeur(c.getValeur() + 100000);
                     }
                 });
             }
-            //vérifier si le quintuplet est rempli de 4 fois le signe de l'adversaire et de 1 case vide.
+            //vérifier si le quintuplet est rempli de 3 fois le signe de l'adversaire et de 1 case vide.
             //Si c'est le cas on perds forcément en ne jouant pas cette case donc augmenter la valeur
             Object[] arr2 = q.get_lCases().stream().filter(c -> c.getState() == opponentSign).toArray();
             if (arr2.length >= 3) {
                 q.get_lCases().forEach(c -> {
                     if (c.getState() == StateEnum.VIDE) {
-                        c.setValeur(c.getValeur() + 9000);
+                        c.setValeur(c.getValeur() + (arr2.length * 9000));
                     }
                 });
             }
         });
-
-
     }
 
     /**
@@ -164,48 +162,54 @@ public class Grille {
     }
 
     /**
+     * Renvoi une string de longueur 5 avec la string passée en parametre au mileu
+     * @param length la longueur de la chaine passée
+     * @param s la chaine a afficher
+     * @param separator mettre un séparateur ou pas a la fin ?
+     * @return
+     */
+    public String stringWithSpace(int length, String s, Boolean separator){
+        return switch (length) {
+            case 1 -> " " + s + (separator ? "  |" :  "   ");
+            case 2 -> " " + s + (separator ? " |" :  "  ");
+            case 3 -> " " + s + (separator ? "|" :  " ");
+            default -> "     ";
+        };
+    }
+
+    /**
      * Print the grid with only the playable grid visible.
      *
      * @Returns: void
      */
     public void print() {
+        int offset = String.valueOf(this.y).length();
         //Print les absisses
-        System.out.print("  ");
+        System.out.print(stringWithSpace(0, "", false));
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
             if (i < 5 || i > this.y + 4)
                 continue;
-            System.out.print(" " + (i - 4));
+            int length = String.valueOf(i - 4).length();
+            System.out.print(stringWithSpace(length, String.valueOf((i - 4)), false));
         }
         System.out.println();
-        System.out.print("  "); //3 espaces
-        for (int i = 5; i < _tabCases.length * 2 + 1; i++) {
-            if (i > this.y + 4)
-                continue;
-            System.out.print("--");
-        }
-        System.out.println();
+        System.out.print(stringWithSpace(0, " ", false));
+        System.out.println("----+".repeat(this.x));
+
         for (int i = 0; i < _tabCases.length; i++) {
             if (i < 5 || i > this.x + 4)
-//                for (int i = 0; i < _tabCases[0].length; i++) {
-//                    if (i < 5 || i > this.y + 4)
                 continue;
-            System.out.print((i - 4) + " ");
-            System.out.print("|");
+            int length = String.valueOf(i - 4).length();
+            System.out.print(stringWithSpace(length, String.valueOf((i-4)), true));
+
             for (int j = 0; j < _tabCases[0].length; j++) {
                 if (j < 5 || j > this.y + 4)
-//                    for (int j = 0; j < _tabCases.length; j++) {
-//                        if (j < 5 || j > this.x + 4)
                     continue;
-                System.out.print(_tabCases[i][j] + "|");
+                System.out.print(stringWithSpace(1, _tabCases[i][j].toString(), true));
             }
             System.out.println();
-        }
-
-        System.out.print("  "); // 3 espaces
-        for (int i = 5; i < _tabCases.length * 2 + 1; i++) {
-            if (i > this.y + 4)
-                continue;
-            System.out.print("--");
+            System.out.print(stringWithSpace(0, "", false));
+            System.out.println("----+".repeat(this.x));
         }
         System.out.println();
     }
@@ -306,7 +310,9 @@ public class Grille {
     // TODO
     // supprimer un pion
 
-    // Retourne le tableau de case pour que les Computer sachent ou jouer.
+    /**
+     *    Retourne le tableau de case pour que les Computer sachent ou jouer.
+      */
     public Case[][] getTabCases() {
         return this._tabCases;
     }

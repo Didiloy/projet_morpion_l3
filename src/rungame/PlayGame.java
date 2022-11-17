@@ -112,6 +112,8 @@ public class PlayGame {
             System.out.println("It's your turn to play");
             this.realPlayer.play();
             this.GRID.print();
+            StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
+            if( symboleGagnant != null) return;
 //            this.GRID.printCasesValues();
 //            this.GRID.printQuint();
             System.out.println("The computer play.");
