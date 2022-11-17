@@ -15,8 +15,12 @@ public class Computer extends Player {
 
     public void play() {
         super.getGrid().updateValue(this.SIGN);
+//        super.getGrid().printCasesValues();
         int[] maxValue = this.getGrid().getMaxValue();
         super.getGrid().playCase(super.getSign(), maxValue[0], maxValue[1]);
+        super.getGrid().updateValue(this.SIGN); //utilisé pour les test
+//        super.getGrid().printCasesValues();
+
     }
 
 }
