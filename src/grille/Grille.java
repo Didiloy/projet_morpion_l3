@@ -31,7 +31,7 @@ public class Grille {
      * @Returns: void
      */
     private void initTab() {
-        for (int i = 0; i < _tabCases.length ; i++) {
+        for (int i = 0; i < _tabCases.length; i++) {
             for (int j = 0; j < _tabCases[0].length; j++) {
                 _tabCases[i][j] = new Case(i, j);
                 if (i < 5 || j < 5 || i > this.x + 4 || j > this.y + 4)
@@ -99,10 +99,38 @@ public class Grille {
         this._lQuint.forEach(Quintuplet::updateEtat);
         this._lQuint.forEach(q -> q.updateValeur(s));
 
+        //Remettre la valeur de chaque case a 0
         // assigner a chaque case la somme des valeurs des quintuplets qui la traverse
+        this._lQuint.forEach(q -> q.get_lCases().forEach(c -> c.setValeur(0)));
         this._lQuint.forEach(q -> q.get_lCases().forEach(c -> {
-                c.setValeur( c.getJouable() ? c.getValeur() + q.getValeur() : 0); //Si la case est jouable on lui ajoute la valeur du quintuplet sinon on met 0
+            c.setValeur(c.getJouable() ? c.getValeur() + q.getValeur() : 0); //Si la case est jouable on lui ajoute la valeur du quintuplet sinon on met 0
         }));
+
+        //vérifier si le quintuplet est rempli de 4 fois le signe et de 1 case vide.
+        //Si c'est le cas on gagne forcément en jouant cette case donc augmenter la valeur
+        StateEnum opponentSign = s == StateEnum.CROIX ? StateEnum.ROND : StateEnum.CROIX;
+        this._lQuint.forEach(q -> {
+            Object[] arr = q.get_lCases().stream().filter(c -> c.getState() == s).toArray();
+            if (arr.length == 4) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 10000);
+                    }
+                });
+            }
+            //vérifier si le quintuplet est rempli de 4 fois le signe de l'adversaire et de 1 case vide.
+            //Si c'est le cas on perds forcément en ne jouant pas cette case donc augmenter la valeur
+            Object[] arr2 = q.get_lCases().stream().filter(c -> c.getState() == opponentSign).toArray();
+            if (arr2.length >= 3) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 9000);
+                    }
+                });
+            }
+        });
+
+
     }
 
     /**
@@ -146,7 +174,7 @@ public class Grille {
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
             if (i < 5 || i > this.y + 4)
                 continue;
-            System.out.print(" " + (i - 4) );
+            System.out.print(" " + (i - 4));
         }
         System.out.println();
         System.out.print("  "); //3 espaces
@@ -284,10 +312,9 @@ public class Grille {
     }
 
     /**
-     *
      * @return an array containing in this order the x and y coordinates of the maximum value
      */
-    public int[] getMaxValue(){
+    public int[] getMaxValue() {
         int xMax = 0;
         int yMax = 0;
         int maxValue = 0;
@@ -313,14 +340,14 @@ public class Grille {
         }
         Random r = new Random();
         int re = r.nextInt(lx.size());
-        return new int []{lx.get(re), ly.get(re)};
+        return new int[]{lx.get(re), ly.get(re)};
     }
 
 
-    public StateEnum getStateQuintupletComplet(){
+    public StateEnum getStateQuintupletComplet() {
         StateEnum stateQuintComplet = null;
-        for (Quintuplet quintuplet : this._lQuint){
-            if (quintuplet.getEtat().equals(Quintuplet.EtatQuintuplet.COMPLET)){
+        for (Quintuplet quintuplet : this._lQuint) {
+            if (quintuplet.getEtat().equals(Quintuplet.EtatQuintuplet.COMPLET)) {
                 stateQuintComplet = quintuplet.get_lCases().get(0).getState();
             }
         }
