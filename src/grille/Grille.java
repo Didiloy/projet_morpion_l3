@@ -114,7 +114,7 @@ public class Grille {
             if (arr.length == 4) {
                 q.get_lCases().forEach(c -> {
                     if (c.getState() == StateEnum.VIDE) {
-                        c.setValeur(c.getValeur() + 100000);
+                        c.setValeur(c.getValeur() + 20000);
                     }
                 });
             }
@@ -124,7 +124,7 @@ public class Grille {
             if (arr2.length >= 3) {
                 q.get_lCases().forEach(c -> {
                     if (c.getState() == StateEnum.VIDE) {
-                        c.setValeur(c.getValeur() + (arr2.length * 9000));
+                        c.setValeur(c.getValeur() + (arr2.length * 2000));
                     }
                 });
             }
@@ -166,7 +166,7 @@ public class Grille {
      * @param length la longueur de la chaine passée
      * @param s la chaine a afficher
      * @param separator mettre un séparateur ou pas a la fin ?
-     * @return
+     * @return string
      */
     public String stringWithSpace(int length, String s, Boolean separator){
         return switch (length) {
@@ -183,7 +183,6 @@ public class Grille {
      * @Returns: void
      */
     public void print() {
-        int offset = String.valueOf(this.y).length();
         //Print les absisses
         System.out.print(stringWithSpace(0, "", false));
         for (int i = 0; i < _tabCases.length * 2 + 1; i++) {
@@ -194,7 +193,7 @@ public class Grille {
         }
         System.out.println();
         System.out.print(stringWithSpace(0, " ", false));
-        System.out.println("----+".repeat(this.x));
+        System.out.println("----+".repeat(this.y));
 
         for (int i = 0; i < _tabCases.length; i++) {
             if (i < 5 || i > this.x + 4)
@@ -209,7 +208,7 @@ public class Grille {
             }
             System.out.println();
             System.out.print(stringWithSpace(0, "", false));
-            System.out.println("----+".repeat(this.x));
+            System.out.println("----+".repeat(this.y));
         }
         System.out.println();
     }
