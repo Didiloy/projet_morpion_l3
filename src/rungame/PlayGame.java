@@ -132,6 +132,7 @@ public class PlayGame {
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             this.GRID.print();
+            if(checkWin()) return;
 
 //            this.GRID.print();
 //            this.GRID.printAll();
