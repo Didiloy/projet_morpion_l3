@@ -133,6 +133,8 @@ public class PlayGame {
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             this.GRID.print();
+            StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
+            if( symboleGagnant != null) return;
 
 //            this.GRID.print();
 //            this.GRID.printAll();
