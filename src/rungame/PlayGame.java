@@ -20,6 +20,7 @@ public class PlayGame {
 
     public static Scanner input = new Scanner(System.in);
 
+    // Initialise la partie
     public PlayGame(){
         // Choisis la taille de la grille
         int x = get_size_grid("width");
