@@ -99,7 +99,7 @@ public class PlayGame {
      **/
 
     private int whoGoesFirst() {
-        int randomNumber = generateRandomNumber(0, 1);
+        int randomNumber = generateRandomNumber(0, 3);
         return randomNumber;
 
     }
@@ -109,7 +109,7 @@ public class PlayGame {
         System.out.println("Round " + this.round);
         this.GRID.print();
 
-        if(this.firstPlayer == 1) {
+        if(this.firstPlayer > 0) {
             System.out.println("It's your turn to play");
             this.realPlayer.play();
             this.GRID.print();
