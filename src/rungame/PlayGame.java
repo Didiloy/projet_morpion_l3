@@ -152,7 +152,10 @@ public class PlayGame {
     public boolean checkWin(){
         StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
         if( symboleGagnant != null){
-            if (symboleGagnant.equals(this.computer.getSign())){
+            if(symboleGagnant == StateEnum.VIDE){
+                System.out.println(ANSIColor.ANSI_PURPLE+ "It's a draw !" + ANSIColor.ANSI_RESET);
+            }
+            else if (symboleGagnant.equals(this.computer.getSign())){
                 System.out.println( ANSIColor.ANSI_YELLOW + "The computer win !" + ANSIColor.ANSI_RESET);
             }else{
                 System.out.println(ANSIColor.ANSI_GREEN + "You win !" + ANSIColor.ANSI_RESET);

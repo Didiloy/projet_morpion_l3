@@ -356,7 +356,23 @@ public class Grille {
                 stateQuintComplet = quintuplet.get_lCases().get(0).getState();
             }
         }
+        if (stateQuintComplet != null) return stateQuintComplet;
+        //il y a peut etre un draw a chercher
+        boolean draw = true;
+        for (int i = 0; i < _tabCases.length; i++) {
+            if (i < 5 || i > this.x + 4)
+                continue;
+            for (int j = 0; j < _tabCases[0].length; j++) {
+                if (j < 5 || j > this.y + 4)
+                    continue;
+                if (_tabCases[i][j].getState().equals(StateEnum.VIDE)) {
+                    draw = false;
+                    break;
+                }
+            }
+        }
 
+        if (draw) stateQuintComplet = StateEnum.VIDE;
         return stateQuintComplet;
     }
 }

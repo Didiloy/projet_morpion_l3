@@ -73,6 +73,10 @@ public class Quintuplet {
                 || c.getState() == StateEnum.VIDE)) {
             this._etat = EtatQuintuplet.OUVERT;
         }
+        else if (this._lCases.stream().allMatch(c -> c.getState() == StateEnum.ROND
+                || c.getState() == StateEnum.CROIX)) {
+            this._etat = EtatQuintuplet.FERME;
+        }
         else
         {
             this._etat = EtatQuintuplet.FERME;
