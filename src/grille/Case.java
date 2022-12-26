@@ -64,8 +64,7 @@ public class Case {
      */
     public void setState(StateEnum state) {
         this._state = state;
-        if (this._state != StateEnum.VIDE)
-            this._jouable = false;
+        this._jouable = this._state == StateEnum.VIDE;
     }
 
     /**

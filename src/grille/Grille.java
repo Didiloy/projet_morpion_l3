@@ -9,7 +9,10 @@ public class Grille {
     private int x;
     private int y;
 
-    private Case[][] _tabCases;
+    public ArrayList<Coordinates> movesList = new ArrayList<>();
+
+
+    public Case[][] _tabCases;
 
     private List<Quintuplet> _lQuint = new ArrayList<>();
 
@@ -23,6 +26,7 @@ public class Grille {
         initQuint();
         setInitialValue();
     }
+
 
     /**
      * Initialise the array of Case by creating the case and setting the extern one
@@ -38,6 +42,10 @@ public class Grille {
                     _tabCases[i][j].setJouable(false);
             }
         }
+    }
+
+    public void addMove(Coordinates xy){
+        this.movesList.add(xy);
     }
 
     /**

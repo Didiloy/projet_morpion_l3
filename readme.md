@@ -6,6 +6,5 @@ In the command line go to the ``exe`` directory and run the commande ```java -ja
 
 ### TODO
 - Extension 6 :
-  - Échanger le role des joueurs
   - revenir en arrière dans l'arborescence des coups
   

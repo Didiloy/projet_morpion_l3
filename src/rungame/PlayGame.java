@@ -6,6 +6,7 @@ import Joueur.Player;
 import Joueur.RealPlayer;
 import common.enums.ANSIColor;
 import common.enums.StateEnum;
+import grille.Coordinates;
 import grille.Grille;
 
 import java.util.Random;
@@ -13,8 +14,9 @@ import java.util.Scanner;
 
 public class PlayGame {
 
-    private Player computer, realPlayer;
-    private Grille GRID;
+    private final Player computer;
+    private final Player realPlayer;
+    private final Grille GRID;
     private int round;
     private int firstPlayer;
 
@@ -96,12 +98,11 @@ public class PlayGame {
      **/
 
     private int whoGoesFirst() {
-        int randomNumber = generateRandomNumber(0, 3);
-        return randomNumber;
+        return generateRandomNumber(0, 3);
 
     }
 
-    private boolean parseAnswer() {
+    private boolean parseSignAnswer() {
         Scanner s = new Scanner(System.in);
         String res = s.nextLine();
         while (!res.equalsIgnoreCase("YES") && !res.equalsIgnoreCase("NO")) {
@@ -111,17 +112,47 @@ public class PlayGame {
         return res.equalsIgnoreCase("YES");
     }
 
+    private int parseOrderAnswer(){
+        Scanner s = new Scanner(System.in);
+        int res = this.round + 1;
+        while (res > this.round) {
+            System.out.println("you must only enter an integer smaller than the number of round");
+            res = s.nextInt();
+        }
+        return res;
+    }
+
+    private void goBack(int order) {
+        int taille = this.GRID.movesList.size();
+        for (int i = taille; i > taille - order; i--) {
+            Coordinates c = this.GRID.movesList.get(i - 1);
+            this.GRID._tabCases[c.getX()][c.getY()].setState(StateEnum.VIDE);
+            this.GRID.movesList.remove(i - 1);
+            this.round--;
+        }
+    }
+
     public void nextRound() {
+        this.GRID.print();
         this.round++;
         System.out.println("Round " + this.round);
-        this.GRID.print();
+        if (this.round > 1) {
+            System.out.println("Do you want to go back in the moves list ?");
+            if (this.parseSignAnswer()) {
+                System.out.println("how much time do you want to go back to");
+                int order = this.parseOrderAnswer();
+                this.goBack(order);
+                this.GRID.print();
+            }
+        }
 
         if (this.firstPlayer > 0) {
             System.out.println("Do you want to change sign with the computer ?");
-            if (this.parseAnswer()) {
+            if (this.parseSignAnswer()) {
                 this.realPlayer.changeSign();
                 this.computer.changeSign();
             }
+
             System.out.println("It's your turn to play\n");
             this.realPlayer.play();
             this.GRID.print();
@@ -156,7 +187,7 @@ public class PlayGame {
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
             System.out.println("Do you want to change sign with the computer ?");
-            if (this.parseAnswer()) {
+            if (this.parseSignAnswer()) {
                 this.realPlayer.changeSign();
                 this.computer.changeSign();
             }
