@@ -19,7 +19,7 @@ public class RealPlayer extends Player {
     }
 
     /**
-     * Get the player input to play on the case he choose
+     * Get the player input to play on the case he chooses
      */
     public void play(){
         //Call the private play methode

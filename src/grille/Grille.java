@@ -320,14 +320,11 @@ public class Grille {
      * @return an array containing in this order the x and y coordinates of the maximum value
      */
     public int[] getMaxValue() {
-        int xMax = 0;
-        int yMax = 0;
+
         int maxValue = 0;
         for (int x = 0; x < _tabCases.length; x++) {
             for (int y = 0; y < _tabCases[x].length; y++) {
                 if (_tabCases[x][y].getValeur() >= maxValue && _tabCases[x][y].getJouable()) {
-                    xMax = x;
-                    yMax = y;
                     maxValue = _tabCases[x][y].getValeur();
                 }
             }

@@ -11,26 +11,26 @@ public abstract class Player {
 
     private Grille GRID;
     private boolean superUser = false;
-    protected final StateEnum SIGN;
+    protected StateEnum SIGN;
     private String name;
 
     public Player(Grille grid, StateEnum sign, String _name) {
         this.GRID = grid;
         this.SIGN = sign;
-        if (Objects.equals(_name, "Human")) {
-            System.out.print("Would you change your name ? (Answer by yes or no) : ");
-            String answer = PlayGame.input.nextLine();
-            System.out.println(); // ATTENTION TEST
-            if ((answer.compareToIgnoreCase("yes")) == 0) {
-                System.out.println("Write your new name :");
-                answer = PlayGame.input.nextLine();
-                this.name = answer;
-            } else {
-                this.name = _name;
-            }
-        } else {
-            this.name = _name;
-        }
+//        if (Objects.equals(_name, "Human")) {
+//            System.out.print("Would you change your name ? (Answer by yes or no) : ");
+//            String answer = PlayGame.input.nextLine();
+//            System.out.println(); // ATTENTION TEST
+//            if ((answer.compareToIgnoreCase("yes")) == 0) {
+//                System.out.println("Write your new name :");
+//                answer = PlayGame.input.nextLine();
+//                this.name = answer;
+//            } else {
+//                this.name = _name;
+//            }
+//        } else {
+//            this.name = _name;
+//        }
     }
 
     public abstract void play();
@@ -50,6 +50,10 @@ public abstract class Player {
 
     public StateEnum getSign() {
         return this.SIGN;
+    }
+
+    public void changeSign(){
+        this.SIGN = this.SIGN == StateEnum.CROIX ? StateEnum.ROND : StateEnum.CROIX;
     }
 
     public String getName() {

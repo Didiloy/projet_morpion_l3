@@ -21,7 +21,7 @@ public class PlayGame {
     public static Scanner input = new Scanner(System.in);
 
     // Initialise la partie
-    public PlayGame(){
+    public PlayGame() {
         // Choisis la taille de la grille
         int x = get_size_grid("width");
         int y = get_size_grid("height");
@@ -34,15 +34,15 @@ public class PlayGame {
         StateEnum signComputer;
 
         // Demande au joueur un signe valide
-        while ( !sign.equals("x") && !sign.equals("o")){
+        while (!sign.equals("x") && !sign.equals("o")) {
             System.out.println("You can only choose x and o as signs: ");
             sign = input.nextLine();
         }
 
-        if ((sign.compareToIgnoreCase("x")) == 0 ){
+        if ((sign.compareToIgnoreCase("x")) == 0) {
             signPlayer = StateEnum.CROIX;
             signComputer = StateEnum.ROND;
-        }else{
+        } else {
             signPlayer = StateEnum.ROND;
             signComputer = StateEnum.CROIX;
         }
@@ -56,16 +56,14 @@ public class PlayGame {
         System.out.println(this.firstPlayer == 0 ? "The computer start this game." : "You start this game.");
     }
 
-    private int get_size_grid(String toget){
+    private int get_size_grid(String toget) {
         int value = -1;
-        while (value == -1)
-        {
+        while (value == -1) {
             System.out.println("Choose " + toget + " of the grid: ");
             String line = input.nextLine();
             try {
                 value = Integer.parseInt(line);
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 value = -1;
                 System.out.println("The " + toget + " has to be an integer greater than 5");
                 continue;
@@ -73,8 +71,7 @@ public class PlayGame {
             if (value < 5) {
                 value = -1;
                 System.out.println("The " + toget + " can't be less than 5");
-            }
-            else if (value > 100) {
+            } else if (value > 100) {
                 value = -1;
                 System.out.println("The " + toget + " can't be greater than 100");
             }
@@ -104,43 +101,65 @@ public class PlayGame {
 
     }
 
-    public void nextRound(){
-        this.round ++;
+    private boolean parseAnswer() {
+        Scanner s = new Scanner(System.in);
+        String res = s.nextLine();
+        while (!res.equalsIgnoreCase("YES") && !res.equalsIgnoreCase("NO")) {
+            System.out.println("you must only answer with yes or no");
+            res = s.nextLine();
+        }
+        return res.equalsIgnoreCase("YES");
+    }
+
+    public void nextRound() {
+        this.round++;
         System.out.println("Round " + this.round);
         this.GRID.print();
 
-        if(this.firstPlayer > 0) {
-            System.out.println("It's your turn to play");
+        if (this.firstPlayer > 0) {
+            System.out.println("Do you want to change sign with the computer ?");
+            if (this.parseAnswer()) {
+                this.realPlayer.changeSign();
+                this.computer.changeSign();
+            }
+            System.out.println("It's your turn to play\n");
             this.realPlayer.play();
             this.GRID.print();
             StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
-            if( symboleGagnant != null) return;
+            if (symboleGagnant != null) return;
 //            this.GRID.printCasesValues();
 //            this.GRID.printQuint();
             System.out.println("The computer play.");
             try {
                 Thread.sleep(2000);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
             this.computer.play();
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
-        }else{
+        } else {
             System.out.println("The computer play.");
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             try {
                 Thread.sleep(2000);
-            } catch (InterruptedException ignored) {}
+            } catch (InterruptedException ignored) {
+            }
             this.computer.play();
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
             this.GRID.print();
             StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
-            if( symboleGagnant != null) return;
+            if (symboleGagnant != null) return;
 
 //            this.GRID.print();
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
+            System.out.println("Do you want to change sign with the computer ?");
+            if (this.parseAnswer()) {
+                this.realPlayer.changeSign();
+                this.computer.changeSign();
+            }
             System.out.println("It's your turn to play");
             this.realPlayer.play();
         }
@@ -149,15 +168,14 @@ public class PlayGame {
     /**
      * check win
      **/
-    public boolean checkWin(){
+    public boolean checkWin() {
         StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
-        if( symboleGagnant != null){
-            if(symboleGagnant == StateEnum.VIDE){
-                System.out.println(ANSIColor.ANSI_PURPLE+ "It's a draw !" + ANSIColor.ANSI_RESET);
-            }
-            else if (symboleGagnant.equals(this.computer.getSign())){
-                System.out.println( ANSIColor.ANSI_YELLOW + "The computer win !" + ANSIColor.ANSI_RESET);
-            }else{
+        if (symboleGagnant != null) {
+            if (symboleGagnant == StateEnum.VIDE) {
+                System.out.println(ANSIColor.ANSI_PURPLE + "It's a draw !" + ANSIColor.ANSI_RESET);
+            } else if (symboleGagnant.equals(this.computer.getSign())) {
+                System.out.println(ANSIColor.ANSI_YELLOW + "The computer win !" + ANSIColor.ANSI_RESET);
+            } else {
                 System.out.println(ANSIColor.ANSI_GREEN + "You win !" + ANSIColor.ANSI_RESET);
             }
             input.close();
