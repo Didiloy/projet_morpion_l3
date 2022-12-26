@@ -109,6 +109,7 @@ public class PlayGame {
             System.out.println("you must only answer with yes or no");
             res = s.nextLine();
         }
+        s.close();
         return res.equalsIgnoreCase("YES");
     }
 
@@ -119,6 +120,7 @@ public class PlayGame {
             System.out.println("you must only enter an integer smaller than the number of round");
             res = s.nextInt();
         }
+        s.close();
         return res;
     }
 
