@@ -103,24 +103,20 @@ public class PlayGame {
     }
 
     private boolean parseSignAnswer() {
-        Scanner s = new Scanner(System.in);
-        String res = s.nextLine();
+        String res = input.nextLine();
         while (!res.equalsIgnoreCase("YES") && !res.equalsIgnoreCase("NO")) {
             System.out.println("you must only answer with yes or no");
-            res = s.nextLine();
+            res = input.nextLine();
         }
-        s.close();
         return res.equalsIgnoreCase("YES");
     }
 
     private int parseOrderAnswer(){
-        Scanner s = new Scanner(System.in);
         int res = this.round + 1;
         while (res > this.round) {
             System.out.println("you must only enter an integer smaller than the number of round");
-            res = s.nextInt();
+            res = input.nextInt();
         }
-        s.close();
         return res;
     }
 
