@@ -112,9 +112,9 @@ public class PlayGame {
     }
 
     private int parseOrderAnswer(){
-        int res = this.round + 1;
-        while (res > this.round) {
-            System.out.println("you must only enter an integer smaller than the number of round");
+        int res = (this.round * 2) + 1;
+        while (res > (this.round * 2) - 1) {
+            System.out.println("you must only enter an integer smaller than the number of played cell");
             res = input.nextInt();
         }
         return res;
@@ -126,8 +126,8 @@ public class PlayGame {
             Coordinates c = this.GRID.movesList.get(i - 1);
             this.GRID._tabCases[c.getX()][c.getY()].setState(StateEnum.VIDE);
             this.GRID.movesList.remove(i - 1);
-            this.round--;
         }
+        this.round = this.round - (order / 2);
     }
 
     public void nextRound() {
