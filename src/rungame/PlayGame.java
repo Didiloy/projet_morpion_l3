@@ -18,44 +18,68 @@ public class PlayGame {
     private final Player realPlayer;
     private final Grille GRID;
     private int round;
+    private boolean computerVsComputer;
     private int firstPlayer;
 
     public static Scanner input = new Scanner(System.in);
 
     // Initialise la partie
     public PlayGame() {
+        System.out.println("Do you want to simulate a game with two computers ? (y or n)");
+        String answer = input.nextLine();
+
+        // Demande au joueur une réponse
+        while (!answer.equals("y") && !answer.equals("n")) {
+            System.out.println("You can must answer by y or n");
+            answer = input.nextLine();
+        }
+        this.computerVsComputer = answer.equals("y");
+
+
         // Choisis la taille de la grille
         int x = get_size_grid("width");
         int y = get_size_grid("height");
 
-        // Choisis le signe du joueur
-        System.out.println("Choose a sign (x or o) :");
-        String sign = input.nextLine();
-
         StateEnum signPlayer;
         StateEnum signComputer;
 
-        // Demande au joueur un signe valide
-        while (!sign.equals("x") && !sign.equals("o")) {
-            System.out.println("You can only choose x and o as signs: ");
-            sign = input.nextLine();
-        }
-
-        if ((sign.compareToIgnoreCase("x")) == 0) {
+        if (this.computerVsComputer) {
             signPlayer = StateEnum.CROIX;
             signComputer = StateEnum.ROND;
+            // initialisation de la grille, des joueurs, des tours et du premier joueur
+            this.GRID = new Grille(x, y);
+            this.realPlayer = new Computer(this.GRID, signPlayer);
+            this.computer = new Computer(this.GRID, signComputer);
+            this.round = 0;
+            this.firstPlayer = this.whoGoesFirst();
+
         } else {
-            signPlayer = StateEnum.ROND;
-            signComputer = StateEnum.CROIX;
+            // Choisis le signe du joueur
+            System.out.println("Choose a sign (x or o) :");
+            String sign = input.nextLine();
+            // Demande au joueur un signe valide
+            while (!sign.equals("x") && !sign.equals("o")) {
+                System.out.println("You can only choose x and o as signs ");
+                sign = input.nextLine();
+            }
+
+            if ((sign.compareToIgnoreCase("x")) == 0) {
+                signPlayer = StateEnum.CROIX;
+                signComputer = StateEnum.ROND;
+            } else {
+                signPlayer = StateEnum.ROND;
+                signComputer = StateEnum.CROIX;
+            }
+            // initialisation de la grille, des joueurs, des tours et du premier joueur
+            this.GRID = new Grille(x, y);
+            this.realPlayer = new RealPlayer(this.GRID, signPlayer);
+            this.computer = new Computer(this.GRID, signComputer);
+            this.round = 0;
+            this.firstPlayer = this.whoGoesFirst();
+            System.out.println(this.firstPlayer == 0 ? "The computer start this game." : "You start this game.");
+
         }
 
-        // initialisation de la grille, des joueurs, des tours et du premier joueur
-        this.GRID = new Grille(x, y);
-        this.realPlayer = new RealPlayer(this.GRID, signPlayer);
-        this.computer = new Computer(this.GRID, signComputer);
-        this.round = 0;
-        this.firstPlayer = this.whoGoesFirst();
-        System.out.println(this.firstPlayer == 0 ? "The computer start this game." : "You start this game.");
     }
 
     private int get_size_grid(String toget) {
@@ -111,7 +135,7 @@ public class PlayGame {
         return res.equalsIgnoreCase("YES");
     }
 
-    private int parseOrderAnswer(){
+    private int parseOrderAnswer() {
         int res = (this.round * 2) + 1;
         while (res > (this.round * 2) - 1) {
             System.out.println("you must only enter an integer smaller than the number of played cell");
@@ -135,23 +159,33 @@ public class PlayGame {
         this.round++;
         System.out.println("Round " + this.round);
         if (this.round > 1) {
-            System.out.println("Do you want to go back in the moves list ?");
-            if (this.parseSignAnswer()) {
-                System.out.println("how much time do you want to go back to");
-                int order = this.parseOrderAnswer();
-                this.goBack(order);
-                this.GRID.print();
+            if (!this.computerVsComputer) {
+                System.out.println("Do you want to go back in the moves list ?");
+                if (this.parseSignAnswer()) {
+                    System.out.println("how much time do you want to go back to");
+                    int order = this.parseOrderAnswer();
+                    this.goBack(order);
+                    this.GRID.print();
+                }
             }
         }
 
         if (this.firstPlayer > 0) {
-            System.out.println("Do you want to change sign with the computer ?");
-            if (this.parseSignAnswer()) {
-                this.realPlayer.changeSign();
-                this.computer.changeSign();
+            if (!this.computerVsComputer) {
+                System.out.println("Do you want to change sign with the computer ?");
+                if (this.parseSignAnswer()) {
+                    this.realPlayer.changeSign();
+                    this.computer.changeSign();
+                }
             }
 
             System.out.println("It's your turn to play\n");
+            if(this.computerVsComputer){
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                }
+            }
             this.realPlayer.play();
             this.GRID.print();
             StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
@@ -184,12 +218,21 @@ public class PlayGame {
 //            this.GRID.print();
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
-            System.out.println("Do you want to change sign with the computer ?");
-            if (this.parseSignAnswer()) {
-                this.realPlayer.changeSign();
-                this.computer.changeSign();
+            if (!this.computerVsComputer) {
+
+                System.out.println("Do you want to change sign with the computer ?");
+                if (this.parseSignAnswer()) {
+                    this.realPlayer.changeSign();
+                    this.computer.changeSign();
+                }
             }
             System.out.println("It's your turn to play");
+            if(this.computerVsComputer){
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                }
+            }
             this.realPlayer.play();
         }
     }
