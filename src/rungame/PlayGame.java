@@ -18,6 +18,8 @@ public class PlayGame {
     private final Player realPlayer;
     private final Grille GRID;
     private int round;
+
+    public int winner; //0 for draw - 1 for computer - 2 for player
     private final boolean computerVsComputer;
     private final int firstPlayer;
 
@@ -262,10 +264,13 @@ public class PlayGame {
         if (symboleGagnant != null) {
             if (symboleGagnant == StateEnum.VIDE) {
                 System.out.println(ANSIColor.ANSI_PURPLE + "It's a draw !" + ANSIColor.ANSI_RESET);
+                this.winner = 0;
             } else if (symboleGagnant.equals(this.computer.getSign())) {
                 System.out.println(ANSIColor.ANSI_YELLOW + "The computer win !" + ANSIColor.ANSI_RESET);
+                this.winner  = 1;
             } else {
                 System.out.println(ANSIColor.ANSI_GREEN + "You win !" + ANSIColor.ANSI_RESET);
+                this.winner = 2;
             }
             input.close();
             return true;
