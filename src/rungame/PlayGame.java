@@ -18,8 +18,10 @@ public class PlayGame {
     private final Player realPlayer;
     private final Grille GRID;
     private int round;
-    private boolean computerVsComputer;
-    private int firstPlayer;
+    private final boolean computerVsComputer;
+    private final int firstPlayer;
+
+    private boolean skipSleep = false;
 
     public static Scanner input = new Scanner(System.in);
 
@@ -34,6 +36,17 @@ public class PlayGame {
             answer = input.nextLine();
         }
         this.computerVsComputer = answer.equals("y");
+        if (this.computerVsComputer) {
+            System.out.println("Do you want to skip the unnecessary time between plays ? (y or n)");
+            answer = input.nextLine();
+
+            // Demande au joueur une réponse
+            while (!answer.equals("y") && !answer.equals("n")) {
+                System.out.println("You can must answer by y or n");
+                answer = input.nextLine();
+            }
+            this.skipSleep = answer.equals("y");
+        }
 
 
         // Choisis la taille de la grille
@@ -180,11 +193,11 @@ public class PlayGame {
             }
 
             System.out.println("It's your turn to play\n");
-            if(this.computerVsComputer){
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ignored) {
-                }
+            if (this.computerVsComputer && !this.skipSleep) {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ignored) {
+                    }
             }
             this.realPlayer.play();
             this.GRID.print();
@@ -193,9 +206,11 @@ public class PlayGame {
 //            this.GRID.printCasesValues();
 //            this.GRID.printQuint();
             System.out.println("The computer play.");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ignored) {
+            if (!this.computerVsComputer || !this.skipSleep) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                }
             }
             this.computer.play();
 //            this.GRID.printQuint();
@@ -204,9 +219,11 @@ public class PlayGame {
             System.out.println("The computer play.");
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException ignored) {
+            if (!this.computerVsComputer || !this.skipSleep) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException ignored) {
+                }
             }
             this.computer.play();
 //            this.GRID.printQuint();
@@ -227,7 +244,7 @@ public class PlayGame {
                 }
             }
             System.out.println("It's your turn to play");
-            if(this.computerVsComputer){
+            if (this.computerVsComputer && !this.skipSleep) {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException ignored) {
