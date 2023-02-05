@@ -278,4 +278,24 @@ public class PlayGame {
         return false;
 
     }
+
+    public  boolean getComputerVsComputer(){
+        return this.computerVsComputer;
+    }
+
+    public boolean getSkipSleep(){
+        return this.skipSleep;
+    }
+
+    public Grille getGrid(){
+        return this.GRID;
+    }
+
+    public int getWhoFirst(){
+        return this.firstPlayer;
+    }
+
+    public Player getRealPlayer(){
+        return this.realPlayer;
+    }
 }
