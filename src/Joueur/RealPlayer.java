@@ -2,11 +2,9 @@ package Joueur;
 
 import common.enums.StateEnum;
 import grille.Case;
-import grille.Grille;
 import grille.Coordinates;
+import grille.Grille;
 import rungame.PlayGame;
-
-import java.util.Scanner;
 
 
 public class RealPlayer extends Player {
@@ -34,7 +32,7 @@ public class RealPlayer extends Player {
 
         if (tabCases[y+4][x+4].getJouable()) {
             super.getGrid().playCase(this.getSign(), y + 4, x + 4);
-            super.getGrid().addMove(new Coordinates(y+4, x+4));
+            super.getGrid().addMove(new Coordinates(y+4, x+4, this.getSign()));
 //            super.getGrid().updateValue(this.SIGN);
         } else {
             this.play("Implayable case. Choose another case");

@@ -1,8 +1,12 @@
 package grille;
 
+import common.enums.StateEnum;
+
 public class Coordinates {
     public int x;
     public int y;
+
+    public StateEnum Sign;
 
     public int getX() {
         return x;
@@ -20,9 +24,14 @@ public class Coordinates {
         this.y = y;
     }
 
-    public Coordinates(int x, int y){
+    public  StateEnum getSign(){ return this.Sign; }
+
+    public void setSign(StateEnum s){ this.Sign = s;}
+
+    public Coordinates(int x, int y, StateEnum sign){
         this.x = x;
         this.y = y;
+        this.Sign = sign;
     }
 
 

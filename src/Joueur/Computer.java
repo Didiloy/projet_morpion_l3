@@ -19,7 +19,7 @@ public class Computer extends Player {
 //        super.getGrid().printCasesValues();
         int[] maxValue = this.getGrid().getMaxValue();
         super.getGrid().playCase(super.getSign(), maxValue[0], maxValue[1]);
-        super.getGrid().addMove(new Coordinates(maxValue[0], maxValue[1]));
+        super.getGrid().addMove(new Coordinates(maxValue[0], maxValue[1], this.getSign()));
         super.getGrid().updateValue(this.SIGN); //utilisé pour les test
 //        super.getGrid().printCasesValues();
 

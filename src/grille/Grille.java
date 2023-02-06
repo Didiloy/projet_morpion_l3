@@ -380,4 +380,12 @@ public class Grille {
         if (draw) stateQuintComplet = StateEnum.VIDE;
         return stateQuintComplet;
     }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
+    }
 }
