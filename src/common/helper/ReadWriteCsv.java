@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ReadWriteCsv {
-    private String file;
+    private final String file;
     public int draw = 0;
     public int computer = 0;
     public int player = 0;
