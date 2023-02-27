@@ -114,10 +114,10 @@ public class Grille {
             c.setValeur(c.getJouable() ? c.getValeur() + q.getValeur() : 0); //Si la case est jouable on lui ajoute la valeur du quintuplet sinon on met 0
         }));
 
-        //vérifier si le quintuplet est rempli de 4 fois le signe et de 1 case vide.
-        //Si c'est le cas on gagne forcément en jouant cette case donc augmenter la valeur
         StateEnum opponentSign = s == StateEnum.CROIX ? StateEnum.ROND : StateEnum.CROIX;
-        this._lQuint.forEach(q -> {
+        this._lQuint.stream().filter(q -> q.getEtat() != Quintuplet.EtatQuintuplet.FERME).forEach(q -> {
+            //vérifier si le quintuplet est rempli de 4 fois le signe et de 1 case vide.
+            //Si c'est le cas on gagne forcément en jouant cette case donc augmenter la valeur
             Object[] arr = q.get_lCases().stream().filter(c -> c.getState() == s).toArray();
             if (arr.length == 4) {
                 q.get_lCases().forEach(c -> {
@@ -126,13 +126,54 @@ public class Grille {
                     }
                 });
             }
+
+            arr = q.get_lCases().stream().filter(c -> c.getState() == s).toArray();
+            if (arr.length == 3) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 10000);
+                    }
+                });
+            }
+
+            arr = q.get_lCases().stream().filter(c -> c.getState() == s).toArray();
+            if (arr.length == 2) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 1000);
+                    }
+                });
+            }
+
+
             //vérifier si le quintuplet est rempli de 3 fois le signe de l'adversaire et de 1 case vide.
             //Si c'est le cas on perds forcément en ne jouant pas cette case donc augmenter la valeur
             Object[] arr2 = q.get_lCases().stream().filter(c -> c.getState() == opponentSign).toArray();
-            if (arr2.length >= 3) {
+            if (arr2.length == 4) {
                 q.get_lCases().forEach(c -> {
                     if (c.getState() == StateEnum.VIDE) {
-                        c.setValeur(c.getValeur() + (arr2.length * 2000));
+                        c.setValeur(c.getValeur() + 15000);
+//                        c.setValeur(c.getValeur() + (arr2.length * 2000));
+                    }
+                });
+            }
+
+            arr2 = q.get_lCases().stream().filter(c -> c.getState() == opponentSign).toArray();
+            if (arr2.length == 3) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 5000);
+//                        c.setValeur(c.getValeur() + (arr2.length * 2000));
+                    }
+                });
+            }
+
+            arr2 = q.get_lCases().stream().filter(c -> c.getState() == opponentSign).toArray();
+            if (arr2.length == 2) {
+                q.get_lCases().forEach(c -> {
+                    if (c.getState() == StateEnum.VIDE) {
+                        c.setValeur(c.getValeur() + 800);
+//                        c.setValeur(c.getValeur() + (arr2.length * 2000));
                     }
                 });
             }
@@ -220,6 +261,7 @@ public class Grille {
         }
         System.out.println();
     }
+
 
     /**
      * Print the grid with only the playable grid visible and with the values of the
@@ -359,6 +401,7 @@ public class Grille {
         for (Quintuplet quintuplet : this._lQuint) {
             if (quintuplet.getEtat().equals(Quintuplet.EtatQuintuplet.COMPLET)) {
                 stateQuintComplet = quintuplet.get_lCases().get(0).getState();
+                break;
             }
         }
         if (stateQuintComplet != null) return stateQuintComplet;

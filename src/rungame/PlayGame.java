@@ -9,6 +9,7 @@ import common.enums.StateEnum;
 import grille.Coordinates;
 import grille.Grille;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
