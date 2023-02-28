@@ -1,10 +1,14 @@
 import common.helper.ReadWriteCsv;
 import rungame.PlayGame;
+import rungame.SaveAndLoad;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
 //        for (int i = 0; i < 2; i++) {
         ReadWriteCsv r = new ReadWriteCsv("./src/res/drawcomputerplayer.csv");
@@ -14,10 +18,26 @@ public class Main {
             System.out.println("Impossible de trouver le fichier d'enregistrement des résultats");
             System.exit(0);
         }
+        Scanner input = new Scanner(System.in);
+        System.out.println("Do you want to load a game ? (y or n)");
+        String answer = input.nextLine();
+        while (!answer.equals("y") && !answer.equals("n")) {
+            System.out.println("You can must answer by y or n");
+            answer = input.nextLine();
+        }
+        PlayGame partie;
+         if (answer.equals("y")){
+             System.out.println("Saisssez le path de la partie");
+             answer = input.nextLine();
+             File file = new File("./saved_game/" + answer);
+             input = new Scanner(file);
+             partie = SaveAndLoad.load(input);
+             input.close();
+         }else {
+             partie = new PlayGame();
+         }
 
-        PlayGame partie = new PlayGame();
-
-        while (!partie.checkWin()) {
+        while ((!partie.checkWin()) && (!partie.isSave())) {
             partie.nextRound();
         }
 

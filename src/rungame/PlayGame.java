@@ -9,6 +9,7 @@ import common.enums.StateEnum;
 import grille.Coordinates;
 import grille.Grille;
 
+import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,6 +25,8 @@ public class PlayGame {
     private final int firstPlayer;
 
     private boolean skipSleep = false;
+
+    private boolean save = false;
 
     public static Scanner input = new Scanner(System.in);
 
@@ -95,6 +98,24 @@ public class PlayGame {
 
         }
 
+    }
+
+    public PlayGame(int lengthX, int lengthY, int firstPlayer, int signPlayer, int skipTime, int pcVsPc) {
+        this.GRID = new Grille(lengthX, lengthY);
+        this.firstPlayer = firstPlayer;
+        this.computerVsComputer = pcVsPc == 1;
+        this.skipSleep = skipTime == 1;
+        StateEnum signComputer = signPlayer == 1 ? StateEnum.ROND : StateEnum.CROIX;
+        if (this.computerVsComputer){
+            this.realPlayer = new Computer(this.GRID, signPlayer == 1 ? StateEnum.CROIX : StateEnum.ROND);
+        }else {
+            this.realPlayer = new RealPlayer(this.GRID, signPlayer == 1 ? StateEnum.CROIX : StateEnum.ROND);
+        }
+
+        this.computer = new Computer(this.GRID, signComputer);
+        this.round = 0;
+
+        System.out.println("Partie chargé avec succés.");
     }
 
     private int get_size_grid(String toget) {
@@ -217,6 +238,20 @@ public class PlayGame {
             this.computer.play();
 //            this.GRID.printQuint();
 //            this.GRID.printCasesValues();
+
+            if (!this.computerVsComputer){
+                System.out.println("Do you want to save the party ?");
+                if (this.parseSignAnswer()){
+                    System.out.println("Saisissez le nom de la partie.");
+                    String namePath = input.nextLine();
+                    try{
+                        SaveAndLoad.save(this, namePath);
+                        this.save = true;
+                    }catch (FileNotFoundException e){
+                        System.out.println(e);
+                    }
+                }
+            }
         } else {
             System.out.println("The computer play.");
 //            this.GRID.printQuint();
@@ -238,6 +273,18 @@ public class PlayGame {
 //            this.GRID.printAll();
 //            this.GRID.printCasesJouable();
             if (!this.computerVsComputer) {
+
+                System.out.println("Do you want to save the party ?");
+                if (this.parseSignAnswer()){
+                    System.out.println("Saisissez le nom de la partie.");
+                    String namePath = input.nextLine();
+                    try{
+                        SaveAndLoad.save(this, namePath);
+                        this.save = true;
+                    }catch (FileNotFoundException e){
+                        System.out.println(e);
+                    }
+                }
 
                 System.out.println("Do you want to change sign with the computer ?");
                 if (this.parseSignAnswer()) {
@@ -297,5 +344,9 @@ public class PlayGame {
 
     public Player getRealPlayer(){
         return this.realPlayer;
+    }
+
+    public boolean isSave() {
+        return save;
     }
 }
