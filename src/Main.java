@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
-//        for (int i = 0; i < 2; i++) {
         ReadWriteCsv r = new ReadWriteCsv("./src/res/drawcomputerplayer.csv");
         try {
             r.readFile();
@@ -42,18 +41,11 @@ public class Main {
         }
 
         switch (partie.winner) {
-            case 0:
-                r.draw += 1;
-                break;
-            case 1:
-                r.computer += 1;
-                break;
-            case 2:
-                r.player += 1;
-                break;
+            case 0 -> r.draw += 1;
+            case 1 -> r.computer += 1;
+            case 2 -> r.player += 1;
         }
         r.writeFile();
-//        }
 
     }
 }
