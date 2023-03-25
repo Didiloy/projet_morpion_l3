@@ -218,12 +218,22 @@ public class Grille {
      * @return string
      */
     public String stringWithSpace(int length, String s, Boolean separator){
-        return switch (length) {
+        if (length == 1){
+            return " " + s + (separator ? "  |" :  "   ");
+        }else if (length == 2){
+            return " " + s + (separator ? " |" :  "  ");
+        }else if (length == 3){
+            return " " + s + (separator ? "|" :  " ");
+        }else {
+            return "     ";
+        }
+
+        /*return switch (length) {
             case 1 -> " " + s + (separator ? "  |" :  "   ");
             case 2 -> " " + s + (separator ? " |" :  "  ");
             case 3 -> " " + s + (separator ? "|" :  " ");
             default -> "     ";
-        };
+        };*/
     }
 
     /**

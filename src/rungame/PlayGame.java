@@ -4,6 +4,7 @@ package rungame;
 import Joueur.Computer;
 import Joueur.Player;
 import Joueur.RealPlayer;
+import Vue.Board;
 import common.enums.ANSIColor;
 import common.enums.StateEnum;
 import grille.Coordinates;
@@ -27,6 +28,7 @@ public class PlayGame {
     private boolean skipSleep = false;
 
     private boolean save = false;
+    private Board board;
 
     public static Scanner input = new Scanner(System.in);
 
@@ -118,6 +120,22 @@ public class PlayGame {
         System.out.println("Partie chargé avec succés.");
     }
 
+    //Constructuer pour la partie graphique
+    public PlayGame(int lengthX, int lengthY, int signPlayer) {
+        this.GRID = new Grille(lengthX, lengthY);
+        this.firstPlayer = this.whoGoesFirst();
+        this.computerVsComputer = false;
+        this.skipSleep = false;
+        StateEnum signComputer = signPlayer == 1 ? StateEnum.ROND : StateEnum.CROIX;
+
+        this.realPlayer = new RealPlayer(this.GRID, signPlayer == 1 ? StateEnum.CROIX : StateEnum.ROND);
+        this.computer = new Computer(this.GRID, signComputer);
+
+        this.round = 0;
+
+        System.out.println("Partie chargé avec succés.");
+    }
+
     private int get_size_grid(String toget) {
         int value = -1;
         while (value == -1) {
@@ -180,7 +198,7 @@ public class PlayGame {
         return res;
     }
 
-    private void goBack(int order) {
+    public void goBack(int order) {
         int taille = this.GRID.movesList.size();
         for (int i = taille; i > taille - order; i--) {
             Coordinates c = this.GRID.movesList.get(i - 1);
@@ -302,6 +320,23 @@ public class PlayGame {
             this.realPlayer.play();
         }
     }
+    // Pour la partie graphique
+    public void nextRound(int x, int y){
+        this.round++;
+
+        ((RealPlayer)this.realPlayer).play(x+1, y+1);
+        this.board.majCase(x, y, this.realPlayer.getSign());
+
+        StateEnum symboleGagnant = this.GRID.getStateQuintupletComplet();
+        if (symboleGagnant != null) return;
+
+
+        int[] coord = ((Computer) this.computer).played();
+        this.board.majCase(coord[1], coord[0], this.computer.getSign());
+        this.GRID.print();
+
+    }
+
 
     /**
      * check win
@@ -348,5 +383,29 @@ public class PlayGame {
 
     public boolean isSave() {
         return save;
+    }
+
+    public int getWinner() {
+        return winner;
+    }
+
+    public StateEnum getSignPlayer(){
+        return this.realPlayer.getSign();
+    }
+
+    public StateEnum getSignComputer(){
+        return this.computer.getSign();
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public int getFirstPlayer() {
+        return firstPlayer;
+    }
+
+    public Player getComputer() {
+        return computer;
     }
 }

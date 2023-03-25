@@ -25,4 +25,13 @@ public class Computer extends Player {
 
     }
 
+    public int[] played() {
+        super.getGrid().updateValue(this.SIGN);
+        int[] maxValue = this.getGrid().getMaxValue();
+        super.getGrid().playCase(super.getSign(), maxValue[0], maxValue[1]);
+        super.getGrid().addMove(new Coordinates(maxValue[0], maxValue[1], this.getSign()));
+        super.getGrid().updateValue(this.SIGN); //utilisé pour les test
+        return new int[]{maxValue[0]-5, maxValue[1]-5};
+    }
+
 }

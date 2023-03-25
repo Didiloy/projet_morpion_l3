@@ -39,6 +39,11 @@ public class RealPlayer extends Player {
         }
     }
 
+    public void play(int x, int y){
+        super.getGrid().playCase(this.getSign(), y + 4, x + 4);
+        super.getGrid().addMove(new Coordinates(y+4, x+4, this.getSign()));
+    }
+
     private int get_value_play(String axe, int max)
     {
         int value = -1;

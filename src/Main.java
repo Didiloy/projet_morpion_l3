@@ -40,12 +40,13 @@ public class Main {
             partie.nextRound();
         }
 
-        switch (partie.winner) {
+        /*switch (partie.winner) {
             case 0 -> r.draw += 1;
             case 1 -> r.computer += 1;
             case 2 -> r.player += 1;
         }
         r.writeFile();
+        */
 
     }
 }
