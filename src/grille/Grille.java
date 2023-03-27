@@ -441,4 +441,8 @@ public class Grille {
     public int getY(){
         return this.y;
     }
+
+    public Boolean isPlayable(int x, int y){
+        return _tabCases[x][y].getJouable();
+    }
 }

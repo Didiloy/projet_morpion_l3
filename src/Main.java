@@ -1,6 +1,8 @@
 import common.helper.ReadWriteCsv;
 import rungame.PlayGame;
 import rungame.SaveAndLoad;
+import rungame.TournamentGame;
+import rungame.TournamentOwner;
 import tournoi.GomokolServer.Server.Server;
 
 import java.io.File;
@@ -23,6 +25,16 @@ public class Main {
                     }
                     break;
                 case "client":
+                    try {
+                        new TournamentGame();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case "owner":
+                    System.out.println("owner");
+                    new TournamentOwner();
+                    TournamentOwner.main(new String[]{});
                     break;
                 default:
                     System.out.println("Argument invalide");

@@ -8,8 +8,8 @@ public class TournamentPlayer extends Player implements tournoi.GomokolClient.in
 
     private int id;
     private StateEnum opponentSign;
-    public TournamentPlayer(Grille grid, StateEnum sign, String _name) {
-        super(grid, sign, _name);
+    public TournamentPlayer(Grille grid, StateEnum sign) {
+        super(grid, sign, "");
         this.opponentSign = sign == StateEnum.CROIX ? StateEnum.ROND : StateEnum.CROIX;
     }
 
@@ -40,7 +40,7 @@ public class TournamentPlayer extends Player implements tournoi.GomokolClient.in
 
     @Override
     public void receiveNewStroke(int player_id, int[] stroke) {
-        super.getGrid().playCase(super.getSign(), stroke[0], stroke[1]);
+        super.getGrid().playCase(this.opponentSign, stroke[0], stroke[1]);
         super.getGrid().addMove(new Coordinates(stroke[0], stroke[1], this.opponentSign));
     }
 }
