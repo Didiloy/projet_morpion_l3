@@ -15,6 +15,7 @@ public class Owner implements GameOwner {
     private Grille board;
 
     public Owner(int width, int height) {
+        System.out.println("on passe ici");
 
         //Initialisation du plateau
         this.board = new Grille(width, height);

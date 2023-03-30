@@ -35,11 +35,9 @@ public class TournamentOwner {
         try {
             //Connexion au serveur
             GamesManager.MANAGER.connect("127.0.0.1", 8080);
-            System.out.println("connecté au serveur");
 
             //Création d'un groupe de jeu
             int group_id = GamesManager.MANAGER.initGroup(group, NB_PLAYER, NB_GAMES);
-            System.out.println("groupe id= " + group_id);
 
             //On affiche l'id du group pour le transmettre aux joueurs
             System.out.println("Le groupe est créé avec l'id : " + group_id);

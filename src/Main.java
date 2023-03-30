@@ -1,6 +1,9 @@
 import common.helper.ReadWriteCsv;
 import rungame.PlayGame;
 import rungame.SaveAndLoad;
+import rungame.TournamentGame;
+import rungame.TournamentOwner;
+import tournoi.GomokolServer.Server.Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +32,6 @@ public class Main {
                     }
                     break;
                 case "owner":
-                    System.out.println("owner");
                     new TournamentOwner();
                     TournamentOwner.main(new String[]{});
                     break;
@@ -75,5 +77,6 @@ public class Main {
         r.writeFile();
         */
 
+        }
     }
 }

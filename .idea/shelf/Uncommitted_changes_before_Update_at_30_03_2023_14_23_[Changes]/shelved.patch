@@ -1,0 +1,58 @@
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import common.helper.ReadWriteCsv;\nimport rungame.PlayGame;\nimport rungame.SaveAndLoad;\nimport rungame.TournamentGame;\nimport rungame.TournamentOwner;\nimport tournoi.GomokolServer.Server.Server;\n\nimport java.io.File;\nimport java.io.FileNotFoundException;\nimport java.io.IOException;\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) throws FileNotFoundException {\n        if (args.length > 0) {\n            switch (args[0]) {\n                case \"serveur\":\n                    Server server = null;\n                    try {\n                        server = new Server();\n                        server.open();\n                    } catch (IOException e) {\n                        System.out.println(\"Problème avec le serveur\");\n                        throw new RuntimeException(e);\n                    }\n                    break;\n                case \"client\":\n                    try {\n                        new TournamentGame();\n                    } catch (Exception e) {\n                        throw new RuntimeException(e);\n                    }\n                    break;\n                case \"owner\":\n                    System.out.println(\"owner\");\n                    new TournamentOwner();\n                    TournamentOwner.main(new String[]{});\n                    break;\n                default:\n                    System.out.println(\"Argument invalide\");\n                    break;\n            }\n        } else {\n\n            ReadWriteCsv r = new ReadWriteCsv(\"./src/res/drawcomputerplayer.csv\");\n            try {\n                r.readFile();\n            } catch (FileNotFoundException e) {\n                System.out.println(\"Impossible de trouver le fichier d'enregistrement des résultats\");\n                System.exit(0);\n            }\n            Scanner input = new Scanner(System.in);\n            System.out.println(\"Do you want to load a game ? (y or n)\");\n            String answer = input.nextLine();\n            while (!answer.equals(\"y\") && !answer.equals(\"n\")) {\n                System.out.println(\"You can must answer by y or n\");\n                answer = input.nextLine();\n            }\n            PlayGame partie;\n            if (answer.equals(\"y\")) {\n                System.out.println(\"Saisssez le path de la partie\");\n                answer = input.nextLine();\n                File file = new File(\"./saved_game/\" + answer);\n                input = new Scanner(file);\n                partie = SaveAndLoad.load(input);\n                input.close();\n            } else {\n                partie = new PlayGame();\n            }\n\n            while ((!partie.checkWin()) && (!partie.isSave())) {\n                partie.nextRound();\n            }\n\n        /*switch (partie.winner) {\n            case 0 -> r.draw += 1;\n            case 1 -> r.computer += 1;\n            case 2 -> r.player += 1;\n        }\n        r.writeFile();\n        */\n\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision c501482ab39d8982d74a4f9382eff75c0bb5c636)
++++ b/src/Main.java	(date 1679906969853)
+@@ -32,7 +32,6 @@
+                     }
+                     break;
+                 case "owner":
+-                    System.out.println("owner");
+                     new TournamentOwner();
+                     TournamentOwner.main(new String[]{});
+                     break;
+Index: src/Joueur/Owner.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Joueur;\nimport common.enums.StateEnum;\nimport grille.Coordinates;\nimport grille.Grille;\nimport tournoi.GomokolClient.interfaces.GameOwner;\nimport tournoi.GomokolClient.interfaces.Validation;\n\n\npublic class Owner implements GameOwner {\n\n    private static final int EMPTY = -1;\n    private int playerSign = -5;\n\n    private int width, height;\n    private Grille board;\n\n    public Owner(int width, int height) {\n\n        //Initialisation du plateau\n        this.board = new Grille(width, height);\n        //Définition des attributs\n        this.width = width;\n        this.height = height;\n    }\n    @Override\n    public Validation getValidation(int player_id, int[] stroke) {\n        //On récupère les coordonnées\n        int x = stroke[0];\n        int y = stroke[1];\n        if (x >= 0 && y >= 0 && x < width && y < height) {\n            StateEnum symboleGagnant = this.board.getStateQuintupletComplet();\n            if (symboleGagnant != null) {\n                if (symboleGagnant == StateEnum.VIDE) {\n                    return Validation.DRAW;\n                }\n                else {\n                    return Validation.ENDGAME;\n                }\n            }\n            if(this.board.isPlayable(x, y)) return Validation.CAVOK;\n        }\n\n        //Cas de Triche ou de jeu incorrect\n        return Validation.CHEATING;\n    }\n\n    @Override\n    public void addStrokeToBoard(int player_id, int[] stroke) {\n        this.board.playCase(getSign(player_id), stroke[0], stroke[1]);\n        this.board.addMove(new Coordinates(stroke[0], stroke[1], getSign(player_id)));\n    }\n\n    private StateEnum getSign(int player_id){\n        if(this.playerSign == -5 ){\n            this.playerSign = player_id;\n        }\n        if(this.playerSign == player_id) return StateEnum.CROIX;\n        return StateEnum.ROND;\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Joueur/Owner.java b/src/Joueur/Owner.java
+--- a/src/Joueur/Owner.java	(revision c501482ab39d8982d74a4f9382eff75c0bb5c636)
++++ b/src/Joueur/Owner.java	(date 1679916645962)
+@@ -15,6 +15,7 @@
+     private Grille board;
+ 
+     public Owner(int width, int height) {
++        System.out.println("on passe ici");
+ 
+         //Initialisation du plateau
+         this.board = new Grille(width, height);
+Index: src/rungame/TournamentOwner.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package rungame;\nimport Joueur.Owner;\nimport tournoi.GomokolClient.Game;\nimport tournoi.GomokolClient.GamesManager;\nimport tournoi.GomokolClient.interfaces.Group;\n\nimport java.util.Scanner;\n\npublic class TournamentOwner {\n\n    private static int WIDTH = 15, HEIGHT = 15, NB_PLAYER = 2, NB_GAMES=10, ORDER=2;\n\n    //Déclaration du groupe\n    private static Group group = new Group(ORDER) {\n\n        //Méthode appelée lors de la création d'une partie liée au groupe\n        @Override\n        public void autoGameSubscriber(int game_id) {\n            try {\n                //On enregistre notre partie localement\n                Game game = GamesManager.MANAGER.registerNewGame(game_id, ORDER);\n\n                //On instancie l'owner\n                Owner owner = new Owner(WIDTH, HEIGHT);\n\n                //On lie l'owner et la partie\n                GamesManager.MANAGER.linkOwnerWithGame(owner, game);\n            } catch (Exception e) {\n                e.printStackTrace();\n            }\n        }\n    };\n\n    public static void main(String[] args) {\n        try {\n            //Connexion au serveur\n            GamesManager.MANAGER.connect(\"127.0.0.1\", 8080);\n            System.out.println(\"connecté au serveur\");\n\n            //Création d'un groupe de jeu\n            int group_id = GamesManager.MANAGER.initGroup(group, NB_PLAYER, NB_GAMES);\n            System.out.println(\"groupe id= \" + group_id);\n\n            //On affiche l'id du group pour le transmettre aux joueurs\n            System.out.println(\"Le groupe est créé avec l'id : \" + group_id);\n\n            //On bloque notre programme pour laisser les joueurs se connecter\n            System.out.println(\"Appuyez sur Entrée pour lancer les parties.\");\n            Scanner sc = new Scanner(System.in);\n            sc.nextLine();\n            sc.close();\n\n            //On créer notre première partie\n            Owner owner = new Owner(WIDTH, HEIGHT);\n            GamesManager.MANAGER.initNewGame(owner, group_id, ORDER);\n\n        } catch (Exception e) {\n            e.printStackTrace();\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/rungame/TournamentOwner.java b/src/rungame/TournamentOwner.java
+--- a/src/rungame/TournamentOwner.java	(revision c501482ab39d8982d74a4f9382eff75c0bb5c636)
++++ b/src/rungame/TournamentOwner.java	(date 1679906901945)
+@@ -35,11 +35,9 @@
+         try {
+             //Connexion au serveur
+             GamesManager.MANAGER.connect("127.0.0.1", 8080);
+-            System.out.println("connecté au serveur");
+ 
+             //Création d'un groupe de jeu
+             int group_id = GamesManager.MANAGER.initGroup(group, NB_PLAYER, NB_GAMES);
+-            System.out.println("groupe id= " + group_id);
+ 
+             //On affiche l'id du group pour le transmettre aux joueurs
+             System.out.println("Le groupe est créé avec l'id : " + group_id);

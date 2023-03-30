@@ -3,9 +3,7 @@ package rungame;
 import common.enums.StateEnum;
 import grille.Coordinates;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -39,6 +37,39 @@ public class SaveAndLoad {
             out.print(actualMove.getX() + " " + actualMove.getY() + " "); //Print X and Y coordinate
             out.print(actualMove.getSign() == StateEnum.ROND ? "0" : "1"); // Print "0" for State ROND and "1" for State CROIX
             out.println();
+        }
+    }
+
+    public static void saveBinary(PlayGame game, String saveName) throws IOException {
+        FileOutputStream fout=new FileOutputStream("./saved_game/" + saveName);
+        DataOutputStream dout=new DataOutputStream(fout);
+
+        //Save game between computer
+        if(game.getComputerVsComputer()){
+
+            dout.writeInt(1); //"1" for true, the game is ComputerVsComputer
+
+            dout.writeInt(game.getSkipSleep() ? 1 : 0); //Skip The sleep time before play ? "1" Yes, "0" No.
+
+        }else{
+            dout.writeInt(0);//"0" for false, the game isn't ComputerVsComputer
+
+            dout.writeInt((game.getRealPlayer().getSign() == StateEnum.ROND ? 0 : 1) );
+            dout.writeInt(game.getRealPlayer().isSuperUser() ? 1 : 0); //Print the sign of the human player, and "0" if is not superUser, or "1" if he is.
+        }
+
+        dout.writeInt(game.getWhoFirst()); //The number generate to select the first player
+
+        dout.writeInt(game.getGrid().getX()); //Number of case for X
+        dout.writeInt(game.getGrid().getY()); //Number of case for Y
+
+        Iterator iteMove = game.getGrid().movesList.iterator();
+
+        while(iteMove.hasNext()){
+            Coordinates actualMove = (Coordinates) iteMove.next();
+            dout.writeInt(actualMove.getX());
+            dout.writeInt( actualMove.getY()); //Print X and Y coordinate
+            dout.writeInt(actualMove.getSign() == StateEnum.ROND ? 0 : 1); // Print "0" for State ROND and "1" for State CROIX
         }
     }
 
