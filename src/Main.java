@@ -1,9 +1,6 @@
 import common.helper.ReadWriteCsv;
 import rungame.PlayGame;
 import rungame.SaveAndLoad;
-import rungame.TournamentGame;
-import rungame.TournamentOwner;
-import tournoi.GomokolServer.Server.Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,9 +57,7 @@ public class Main {
             if (answer.equals("y")) {
                 System.out.println("Saisssez le path de la partie");
                 answer = input.nextLine();
-                File file = new File("./saved_game/" + answer);
-                input = new Scanner(file);
-                partie = SaveAndLoad.load(input);
+                partie = SaveAndLoad.load(answer);
                 input.close();
             } else {
                 partie = new PlayGame();
@@ -80,6 +75,5 @@ public class Main {
         r.writeFile();
         */
 
-        }
     }
 }

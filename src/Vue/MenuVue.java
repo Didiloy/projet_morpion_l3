@@ -14,6 +14,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import rungame.PlayGame;
 
+import java.io.File;
+
 public class MenuVue {
 
     private MainVue mainVue;
@@ -24,7 +26,7 @@ public class MenuVue {
     public Scene creerVue(){
         VBox main = new VBox();
 
-        BackgroundImage myBI= new BackgroundImage(new Image("./Image/background.png",1000,1000,false,true),
+        BackgroundImage myBI= new BackgroundImage(new Image("./Image/background.png",1000,800,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         main.setBackground(new Background(myBI));
@@ -90,6 +92,18 @@ public class MenuVue {
                 }
             } else {
                 Alert al = new Alerte("Il faut mettre des nombres pour les tailles.");
+                al.showAndWait();
+            }
+        });
+
+        sauvegarder.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
+            File repertoire = new File("./saved_game");
+            String liste[] = repertoire.list();
+
+            if (liste != null) {
+                this.mainVue.getPrimaryStage().setScene(new SaveVue(this.mainVue).creerVue(liste));
+            } else {
+                Alert al = new Alerte("Problème pour charger les sauvegardes.");
                 al.showAndWait();
             }
         });

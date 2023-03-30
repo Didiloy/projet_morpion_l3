@@ -1,5 +1,6 @@
 package Vue;
 
+import Controleur.ControleurRetour;
 import rungame.PlayGame;
 import rungame.SaveAndLoad;
 
@@ -23,25 +24,24 @@ public class PlayVue {
     private MainVue main;
     private PlayGame game;
     private Board board;
+    private TextField tfretour;
 
     public PlayVue(MainVue main, PlayGame game){
         this.main = main;
         this.game = game;
-
-
     }
 
     public Scene creerVue(int x, int y){
         BorderPane main = new BorderPane();
 
-        BackgroundImage myBI= new BackgroundImage(new Image("./Image/background.png",1000,1000,false,true),
+        BackgroundImage myBI= new BackgroundImage(new Image("./Image/background.png",1000,800,false,true),
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
                 BackgroundSize.DEFAULT);
         main.setBackground(new Background(myBI));
 
         VBox botons = new VBox();
         Label lretour = new Label("Nb de retour : ");
-        TextField tfretour = new TextField();
+        tfretour = new TextField();
         tfretour.setPrefWidth(50);
         HBox hretour = new HBox(lretour, tfretour);
         botons.getChildren().add(hretour);
@@ -58,15 +58,7 @@ public class PlayVue {
         botons.getChildren().add(sauvegarde);
 
 
-        retour.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
-            if (tfretour.getCharacters().toString().matches("[0-9]+")){
-                int nb = Integer.parseInt(tfretour.getCharacters().toString());
-                game.goBack(nb);
-            }else{
-                Alert al = new Alerte("Il faut mettre des nombres pour le retour en arrière.");
-                al.showAndWait();
-            }
-        });
+        retour.addEventHandler(MouseEvent.MOUSE_CLICKED, new ControleurRetour(this, game));
 
         echange.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             game.getRealPlayer().changeSign();
@@ -76,11 +68,10 @@ public class PlayVue {
         sauvegarde.addEventHandler(MouseEvent.MOUSE_CLICKED, mouseEvent -> {
             if (!tsauvegarde.toString().equals("")){
                 try {
-                    SaveAndLoad.save(game, tsauvegarde.toString());
+                    SaveAndLoad.save(game, tsauvegarde.getText());
                     this.getMain().getPrimaryStage().setScene(new MenuVue(this.getMain()).creerVue());
                 }catch (IOException e){
-                    System.out.println(e);
-                    Alert al = new Alerte("La sauvegarde n'a pas marché.");
+                    Alert al = new Alerte("La sauvegarde n'a pas marché.\n" + e);
                     al.showAndWait();
                 }
             }else {
@@ -122,12 +113,6 @@ public class PlayVue {
         rbottom.setPrefHeight(100);
         BorderPane gp = new BorderPane(this.board, rtop, rright, rbottom, rleft);
 
-
-        /*
-        VBox vBox = new VBox();
-        vBox.getChildren().add(this.board);
-        vBox.setSpacing(10);
-        vBox.setPadding(new Insets(0));*/
         main.setCenter(gp);
 
         return new Scene(main, 1000, 800);
@@ -164,5 +149,9 @@ public class PlayVue {
 
     public Board getBoard() {
         return board;
+    }
+
+    public TextField getTfretour() {
+        return tfretour;
     }
 }

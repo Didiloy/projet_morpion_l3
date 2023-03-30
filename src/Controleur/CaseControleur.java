@@ -18,7 +18,6 @@ public class CaseControleur implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        System.out.println(event.getSource().getClass());
         if (((CaseVue) event.getSource()).isVide()){
             playGame.nextRound(((CaseVue) event.getSource()).getCoordX(), ((CaseVue) event.getSource()).getCoordY());
 

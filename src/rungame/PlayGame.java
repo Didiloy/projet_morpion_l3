@@ -208,6 +208,17 @@ public class PlayGame {
         this.round = this.round - (order / 2);
     }
 
+    public void goBackGraphique(int order) {
+        int taille = this.GRID.movesList.size();
+        for (int i = taille; i > taille - order; i--) {
+            Coordinates c = this.GRID.movesList.get(i - 1);
+            this.GRID._tabCases[c.getX()][c.getY()].setState(StateEnum.VIDE);
+            this.GRID.movesList.remove(i - 1);
+            board.resetCase(c.getY()-5, c.getX()-5);
+        }
+        this.round = this.round - (order / 2);
+    }
+
     public void nextRound() {
         this.GRID.print();
         this.round++;
@@ -407,5 +418,13 @@ public class PlayGame {
 
     public Player getComputer() {
         return computer;
+    }
+
+    public int getX(){
+        return this.GRID.getX();
+    }
+
+    public int getY(){
+        return this.GRID.getY();
     }
 }

@@ -40,7 +40,6 @@ public class Board extends GridPane {
     }
 
     public void resetCase(int x, int y){
-        System.out.println("resetcase : " + y + " " + x);
         for(int i=0; i < this.getChildren().size(); i++){
             if(((CaseVue) (this.getChildren().get(i))).getCoordX() == x && ((CaseVue) (this.getChildren().get(i))).getCoordY() == y){
                 ((CaseVue) (this.getChildren().get(i))).reset();

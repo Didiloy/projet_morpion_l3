@@ -42,7 +42,9 @@ public class SaveAndLoad {
         }
     }
 
-    public static PlayGame load(Scanner output) throws FileNotFoundException {
+    public static PlayGame load(String nom) throws FileNotFoundException {
+        File file = new File("./saved_game/" + nom);
+        Scanner output = new Scanner(file);
         int pcVsPc = output.nextInt();
         int signPlayer = 1;
         int superUser = 0;
@@ -67,7 +69,7 @@ public class SaveAndLoad {
                 game.getGrid().playCase(sign == 1 ? StateEnum.CROIX : StateEnum.ROND, x, y);
                 game.getGrid().addMove( new Coordinates(x, y, sign == 1 ? StateEnum.CROIX : StateEnum.ROND));
             }
-
+        game.getGrid().print();
         return game;
     }
 }
